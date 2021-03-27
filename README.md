@@ -15,17 +15,52 @@ Ryujin baru saja diterima sebagai IT support di perusahaan Bukapedia. Dia diberi
   
   Mengumpulkan informasi dari log aplikasi yang terdapat pada file `syslog.log`. Informasi yang diperlukan antara lain: jenis log (`ERROR/INFO`), pesan log, dan username pada setiap baris lognya. Karena Ryujin merasa kesulitan jika harus memeriksa satu per satu baris secara manual, dia menggunakan regex untuk mempermudah pekerjaannya. Bantulah Ryujin membuat regex tersebut.
 
+- <b>JAWABAN</b>
+
+  Menggunakan command ini:
+  ```
+  error=$(grep -o -E "ERROR" syslog.log)
+  info=$(grep -o -E "INFO" syslog.log)
+  totalError=$(grep --count "ERROR" syslog.log)
+  totalInfo=$(grep --count "INFO" syslog.log)
+  ```
+  Untuk mengumpulkan informasi dari log aplikasi yang ada di `syslog.log`, menggunakan command `grep` yang mengambil kata kunci, di sini memakai "ERROR" atau "INFO" untuk mencarinya. Option `-o` digunakan untuk print hasil yang hanya sesuai kata kunci, lalu option `-E` untuk <i>extended regular expression</i> dan akan dimasukkan ke variabel `error` ataupun `info`. Lalu, untuk menghitung jumlah error, bisa menggunakan option `--count` yang akan menghitung setiap keyword yang muncul per baris dan akan dimasukkan ke variabel `totalError` ataupun `totalInfo`.
+  
 ### 1B ###
 
 - <b>SOAL</b>
 
   Kemudian, Ryujin harus menampilkan semua pesan error yang muncul beserta jumlah kemunculannya.
+  
+- <b>JAWABAN</b>
+
+  Menggunakan command ini:
+  ```
+  listError=$(grep -o "ERROR.*" syslog.log | cut -d " " -f 2- | cut -d "(" -f 1 | sort -V | uniq -c | sort -n)
+  ```
+  Untuk menampilkan semua pesan error dari log aplikasi yang ada di `syslog.log` serta jumlah kemunculannya, menggunakan command `grep` yang mengambil kata kunci, di sini memakai "ERROR.*emphasis*" untuk mencarinya. Sebelumnya di sini menggunakan operator `|` pipe untuk mengubah input ke command selanjutnya. Option `-o` digunakan untuk print hasil yang hanya sesuai kata kunci, lalu command `cut` mengambil deskripsi error dengan delimiter dan option yang sesuai. Setelah itu dirapikan menggunakan command `sort` dengan option `-V`, dan tiap error-error yang mempunyai duplikat akan dihitung dengan command `uniq` dengan option `-c`. Terakhir di-<i>sort</i> secara ascending (paling kecil) menggunakan command `sort` dengan option `-n`.
 
 ### 1C ###
 
 - <b>SOAL</b>
 
   Ryujin juga harus dapat menampilkan jumlah kemunculan log `ERROR` dan `INFO` untuk setiap <i>user</i>-nya. Setelah semua informasi yang diperlukan telah disiapkan, kini saatnya Ryujin menuliskan semua informasi tersebut ke dalam laporan dengan format file `csv`.
+  
+- <b>JAWABAN</b>
+
+  Menggunakan command ini:
+  ```
+  listUser=$(cut -d"(" -f 2 < syslog.log | cut -d ")" -f 1 | sort | uniq)
+  ```
+  Untuk menyimpan list nama user dari log "ERROR" aplikasi yang ada di `syslog.log`, menggunakan command `cut` yang memotong string, di sini memakai option `-d"(" -f 2 < syslog.log` untuk memotong <b>field kedua sampai pertama</b> dengan patokan <i>char</i> "(". Sebelumnya di sini menggunakan operator `|` pipe untuk mengubah input ke command selanjutnya. Kemudian, menggunakan command `cut` kembali dengan option `cut -d ")" -f 1` untuk memotong <b>field pertama</b> dengan patokan <i>char</i> ")". Setelah itu dirapikan menggunakan command `sort`, dan tiap error-error yang mempunyai duplikat akan dihapus dan hanya akan muncul 1 kali saja.
+  
+  Lalu dengan command ini:
+  ```
+  userError=$(grep -o "ERROR.*" syslog.log | cut -f 2- -d"(" | cut -d ")" -f 1 | sort | uniq -c | sort -n)
+  userInfo=$(grep -o "INFO.*" syslog.log | cut -f 2- -d"(" | cut -d ")" -f 1 | sort | uniq -c | sort -n)
+  ```
+  Untuk menghitung jumlah user dari log "ERROR" atau "INFO" aplikasi yang ada di `syslog.log`, menggunakan command `grep` yang mengambil kata kunci, di sini memakai "ERROR.*emphasis*" atau "INFO.*emphasis*" untuk mencarinya. Sebelumnya di sini menggunakan operator `|` pipe untuk mengubah input ke command selanjutnya. Kemudian, memakai option `-d"(" -f 2 < syslog.log` untuk memotong <b>field kedua sampai pertama</b> dengan patokan <i>char</i> "(", dan menggunakan command `cut` kembali dengan option `cut -d ")" -f 1` untuk memotong <b>field pertama</b> dengan patokan <i>char</i> ")", dan tiap error-error yang mempunyai duplikat akan dihitung dengan command `uniq` dengan option `-c`. Terakhir di-<i>sort</i> secara ascending (paling kecil) menggunakan command `sort` dengan option `-n`.
+
 
 ### 1D ###
 
