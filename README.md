@@ -89,7 +89,7 @@ Tiap tahunnya, TokoShiSop mengadakan Rapat Kerja yang membahas bagaimana hasil p
   
   Kuhaaku ingin supaya script berjalan pada setiap sehari sekali pada jam 8 malam untuk taanggal tanggal tertentu setiap bulan yaitu dari tanggal 1 tujuh hari sekali (1,8,...), serta dari tanggal 2 empat hari sekali(2,6,...). Agar lebih rapih, gambar yang diunduh beserta log-nya dipindahkan ke folder dengan nama tanggal unduhnya dengan format "DD-MM-YY".
   
-   ### 3C ###
+### 3C ###
   
 - <b>SOAL</B>
   
