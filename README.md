@@ -73,9 +73,9 @@ Tiap tahunnya, TokoShiSop mengadakan Rapat Kerja yang membahas bagaimana hasil p
   
   Agar mudah dibaca oleh Manis, Clemong, dan Steven, kamu diharapkan bisa membuat sebuah script yang akan menghasilkan file “<i>hasil.txt</i>”
   
-  ## SOAL 3 ##
+## SOAL 3 ##
   
-  Kuuhaku adalah orang yang sangat suka mengoleksi foto digital, karena ia malas, kuhaku tidak ingin repot repot mencari foto, selain itu dia juga ingin agar tidak ada orang yang melihat koleksi tsb, sayangnya ia memiliki teman yang bernama Steven yang memiliki rasa kepo yang luar biasa. Kuuhaku pun memiliki ide agar Steven tidak bisa melihat koleksinya, serta untuk mempermudah hidupnya, yaitu dengan meminta bantuan kalian
+Kuuhaku adalah orang yang sangat suka mengoleksi foto digital, karena ia malas, kuhaku tidak ingin repot repot mencari foto, selain itu dia juga ingin agar tidak ada orang yang melihat koleksi tsb, sayangnya ia memiliki teman yang bernama Steven yang memiliki rasa kepo yang luar biasa. Kuuhaku pun memiliki ide agar Steven tidak bisa melihat koleksinya, serta untuk mempermudah hidupnya, yaitu dengan meminta bantuan kalian
   
  ### 3A ###
   
