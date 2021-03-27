@@ -49,6 +49,43 @@ Tiap tahunnya, TokoShiSop mengadakan Rapat Kerja yang membahas bagaimana hasil p
   ```
   <i>Cost Price</i> didapatkan dari pengurangan <i>Sales</i> dengan <i>Profit</i>. (<b>Quantity diabaikan</b>).
 
+- <b>JAWABAN</b>
+
+  Pada soal ini digunakan AWK dalam penyelesaiannya.
+  ```
+  BEGIN {
+    maxID = 0;
+    max = 0;
+  }
+  ```
+  Pertama kita menginisialisasi variabel untuk menjalankan program. `maxID` untuk menyimpan nilai maksimum <i>RowID</i> dan `max` untuk menyimpan nilai <i>profit percentage</i> terbesar.
+  
+  Lalu, pada bagian <i>main</i>-nya, terdapat command berikut:
+  ```
+  {
+    rowID = $1;
+    sales = $18;
+    profit = $21;
+    if (NR != 1) {
+        costPrice = sales - profit;
+        profitPercentage = (profit / costPrice) * 100;
+            if (max <= profitPercentage) {
+                max = profitPercentage;
+                maxID = rowID;
+            }
+    }
+  }
+  ```
+  Kemudian membuat inisial variabel agar lebih mudah dalam pembacaan kode, dengan `rowID = $1`, `sales = $18`, dan `profit = $21`. Pada pengondisian `NR atau <i>Number of Row</i> != 1` maksudnya adalah agar bagian paling atas data (<i>header</i>) sendiri tidak di-<i>passing</i>. Di dalam pengondisian itu, dilakukan pendefinisian `costPrice = sales - profit`, juga `profitPercentage` sesuai permintaan soal. Lalu, jika `max <= profitPercentage`, nilai `max` akan sama dengan `profitPercentage` dan `maxID` sama dengan `rowID`, hal ini dilakukan untuk mendapat nilai terbesar. Pengondisian akan terus terjadi selama masih bernilai <b>TRUE</b>, sehingga nilai akan terus ter-<i>update</i>.
+  
+  Pada akhir script nomor 2A bagian END:
+  ```
+  END {
+    printf "Transaksi terakhir dengan profit percentage terbesar yaitu %d dengan persentase %.2f%%.\n\n", maxID, max;
+  } ' Laporan-TokoShiSop.tsv >> hasil.txt
+  ```
+  Bagian ini digunakan sebagai output yang formatnya sesuai dengan permintaan soal. "<i>Laporan-TokoShisop.tsv</i>" sendiri adalah source file data yang dipakai dalam pemrosesan program yang kemudian hasilnya dimasukkan ke dalam "<i>hasil.txt</i>"
+  
 ### 2B ###
 
 - <b>SOAL</b>
