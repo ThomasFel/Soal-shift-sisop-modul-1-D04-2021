@@ -81,7 +81,7 @@ Tiap tahunnya, TokoShiSop mengadakan Rapat Kerja yang membahas bagaimana hasil p
   
 - <b>SOAL</B>
   
-  Membuat script untuk mengunduh 23 gambar dari "https://loremflickr.com/320/240/kitten serta menyimpan lognya ke file "Foto.log", serta tidak boleh ada gambar yang sama.  Lalu gambar gambar tsb disimpan demgam ma,a "Koleksi_XX" dengan nomor berurutan tanpa ada nomor yg hilang.
+  Membuat script untuk mengunduh 23 gambar dari "https://loremflickr.com/320/240/kitten serta menyimpan lognya ke file "Foto.log", serta tidak boleh ada gambar yang sama.  Lalu gambar gambar tsb disimpan dengan nama "Koleksi_XX" dengan nomor berurutan tanpa ada nomor yg hilang.
 
  ### 3B ###
   
