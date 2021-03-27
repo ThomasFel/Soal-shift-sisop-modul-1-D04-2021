@@ -92,6 +92,42 @@ Tiap tahunnya, TokoShiSop mengadakan Rapat Kerja yang membahas bagaimana hasil p
 
   Clemong memiliki rencana promosi di Albuquerque menggunakan metode MLM. Oleh karena itu, Clemong membutuhkan daftar <b>nama <i>customer</i> pada transaksi tahun 2017 di Albuquerque</b>.
 
+- <b>JAWABAN</b>
+
+  Pada bagian awal soal 2B:
+  ```
+  BEGIN {
+    printf "Daftar nama customer di Albuquerque pada tahun 2017 antara lain: \n";
+  }
+  ```
+  Pertama kita mengeluarkan output yang sesuai dengan permintaan soal.
+  
+  Lalu, pada bagian <i>main</i>-nya, terdapat command berikut:
+  ```
+  {
+    orderDate = $3;
+    city = $10;
+    years = substr(orderDate, 7, 2);
+    if (NR != 1) {
+        if (years == 17 && city == "Albuquerque") {
+            namesArr[$7];
+        }
+    }
+  }
+  ```
+   Kemudian membuat inisial variabel agar lebih mudah dalam pembacaan kode, dengan `orderDate = $3` dan `city = $10`. Dalam row `orderDate` yang ada di "<i>Laporan-TokoShisop.tsv</i>", karena formatnya <b>DD-MM-YY</b>, digunakan fungsi <b>substr</b> untuk mendapatkan nilai tahun yang kemudian dimasukkan ke variabel `years`. Pada pengondisian `NR atau <i>Number of Row</i> != 1` maksudnya adalah agar bagian paling atas data (<i>header</i>) sendiri tidak di-<i>passing</i>. Lalu, karena diminta tahun sama dengan 2017 dan kotanya Albuquerque ditambahkan jika `years == 17 && city == "Albuquerque"`, nilai yang berisi nama-nama orang di kolom 7 ($7) akan dimasukkan ke dalam array `namesArr`.
+   
+   Pada akhir script nomor 2B bagian END:
+  ```
+  END {
+    for (nameArr in namesArr) {
+        print nameArr;
+    }
+    printf "\n";
+  } ' Laporan-TokoShiSop.tsv >> hasil.txt
+  ```
+  Bagian ini digunakan sebagai output nama orang tadi dan formatnya disesuaikan dengan permintaan soal. Di sini memakai perulangan <i>for in</i> untuk mencetaknya. "<i>Laporan-TokoShisop.tsv</i>" sendiri adalah source file data yang dipakai dalam pemrosesan program yang kemudian hasilnya dimasukkan ke dalam "<i>hasil.txt</i>"
+
 ### 2C ###
 
 - <b>SOAL</b>
