@@ -41,5 +41,5 @@ echo "$listUser," | while read users
 do
     totalUserError=$(grep --count "ERROR.*($users)" syslog.log)
     totalUserInfo=$(grep --count "INFO.*($users)" syslog.log)
-    echo "$loop2,$totalUserInfo,$totalUserError" >> user_statistic.csv
+    echo "$users,$totalUserInfo,$totalUserError" >> user_statistic.csv
 done
