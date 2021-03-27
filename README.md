@@ -72,3 +72,37 @@ Tiap tahunnya, TokoShiSop mengadakan Rapat Kerja yang membahas bagaimana hasil p
 - <b>SOAL</B>
   
   Agar mudah dibaca oleh Manis, Clemong, dan Steven, kamu diharapkan bisa membuat sebuah script yang akan menghasilkan file “<i>hasil.txt</i>”
+  
+  ## SOAL 3 ##
+  
+  Kuuhaku adalah orang yang sangat suka mengoleksi foto digital, karena ia malas, kuhaku tidak ingin repot repot mencari foto, selain itu dia juga ingin agar tidak ada orang yang melihat koleksi tsb, sayangnya ia memiliki teman yang bernama Steven yang memiliki rasa kepo yang luar biasa. Kuuhaku pun memiliki ide agar Steven tidak bisa melihat koleksinya, serta untuk mempermudah hidupnya, yaitu dengan meminta bantuan kalian
+  
+  ### 3A ###
+  
+  <b>SOAL</B>
+  
+  Membuat script untuk mengunduh 23 gambar dari "https://loremflickr.com/320/240/kitten serta menyimpan lognya ke file "Foto.log", serta tidak boleh ada gambar yang sama.  Lalu gambar gambar tsb disimpan demgam ma,a "Koleksi_XX" dengan nomor berurutan tanpa ada nomor yg hilang.
+
+ ### 3B ###
+  
+  <b>SOAL</B>
+  
+  Kuhaaku ingin supaya script berjalan pada setiap sehari sekali pada jam 8 malam untuk taanggal tanggal tertentu setiap bulan yaitu dari tanggal 1 tujuh hari sekali (1,8,...), serta dari tanggal 2 empat hari sekali(2,6,...). Agar lebih rapih, gambar yang diunduh beserta log-nya dipindahkan ke folder dengan nama tanggal unduhnya dengan format "DD-MM-YY".
+  
+   ### 3C ###
+  
+  <b>SOAL</B>
+  
+  Karena kuuhaku bosan dengan gambar kucing saja juga harus mengunduh gambar kelinci dari https://loremflickr.com/320/240/bunny". Kuuhaku meminta kita mengunduh gambar kucing dan kelinci secara bergantian (1 kucing, 2 kelinci, 3 kucing) untuk membedakan folder yang berisi gambar kucing dan kelinci , nama folder diberi awalan "Kucing_" atau "Kelinci_" serta tanggal mengunduhnya dengan format "DD-MM-YYY".
+  
+### 3D ###
+  
+  <b>SOAL</B>
+  
+ Agar foto foto tersebut aman dari steven kuuhaku meminta kita untuk membuat script untuk memndahkan seluruh folder ke zip yang diberi nama "Koleksi.zip" dan mengunci zip dengan password berupa tanggal saat ini dengan format "MMDDYYY" 
+ 
+ ### 3E ###
+  
+  <b>SOAL</B>
+  
+ Karena Kuuhaku hanya bertemu Steven pada saat jam kuloiah saja, yaitu setiap hari kecuali sabtu dan minggu dari jam 7 pagi sampai 6 sore, Kuuhaku ingin kita agar membuat koleksinya ter-zip saat jam kuliah saja, selain dari waktu tersebut ia ingin koleksinya ter un-zip dan tidak ada file zip sama sekali
