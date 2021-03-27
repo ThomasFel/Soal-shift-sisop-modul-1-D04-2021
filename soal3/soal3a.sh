@@ -41,4 +41,4 @@ do
        file=$(($file+1))
      fi
    fi
-doney
+done
