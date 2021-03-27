@@ -84,7 +84,7 @@ Tiap tahunnya, TokoShiSop mengadakan Rapat Kerja yang membahas bagaimana hasil p
     printf "Transaksi terakhir dengan profit percentage terbesar yaitu %d dengan persentase %.2f%%.\n\n", maxID, max;
   } ' Laporan-TokoShiSop.tsv >> hasil.txt
   ```
-  Bagian ini digunakan sebagai output yang formatnya sesuai dengan permintaan soal. "<i>Laporan-TokoShisop.tsv</i>" sendiri adalah source file data yang dipakai dalam pemrosesan program yang kemudian hasilnya dimasukkan ke dalam "<i>hasil.txt</i>"
+  Bagian ini digunakan sebagai output yang formatnya sesuai dengan permintaan soal. "<i>Laporan-TokoShisop.tsv</i>" sendiri adalah source file data yang dipakai dalam pemrosesan program yang kemudian hasilnya dimasukkan ke dalam "<i>hasil.txt</i>".
   
 ### 2B ###
 
@@ -126,7 +126,7 @@ Tiap tahunnya, TokoShiSop mengadakan Rapat Kerja yang membahas bagaimana hasil p
     printf "\n";
   } ' Laporan-TokoShiSop.tsv >> hasil.txt
   ```
-  Bagian ini digunakan sebagai output nama orang tadi dan formatnya disesuaikan dengan permintaan soal. Di sini memakai perulangan <i>for in</i> untuk mencetaknya. "<i>Laporan-TokoShisop.tsv</i>" sendiri adalah source file data yang dipakai dalam pemrosesan program yang kemudian hasilnya dimasukkan ke dalam "<i>hasil.txt</i>"
+  Bagian ini digunakan sebagai output nama orang tadi dan formatnya disesuaikan dengan permintaan soal. Di sini memakai perulangan <i>for in</i> untuk mencetaknya. "<i>Laporan-TokoShisop.tsv</i>" sendiri adalah source file data yang dipakai dalam pemrosesan program yang kemudian hasilnya dimasukkan ke dalam "<i>hasil.txt</i>".
 
 ### 2C ###
 
@@ -134,17 +134,138 @@ Tiap tahunnya, TokoShiSop mengadakan Rapat Kerja yang membahas bagaimana hasil p
 
   TokoShiSop berfokus tiga <i>segment customer</i>, antara lain: <i>Home Office</i>, <i>Consumer</i>, dan <i>Corporate</i>. Clemong ingin meningkatkan penjualan pada segmen <i>customer</i> yang paling sedikit. Oleh karena itu, Clemong membutuhkan <b>segment <i>customer</i></b> dan <b>jumlah transaksinya yang paling sedikit</b>.
 
+- <b>JAWABAN</b>
+
+  Pada bagian awal soal 2C:
+  ```
+  BEGIN {
+    homeOffice = 0;
+    consumer = 0;
+    corporate = 0;
+  }
+  ```
+  Pertama kita menginisialisasi variabel untuk menjalankan program. `homeOffice` untuk menyimpan nilai kemunculan <i>Home Office</i>, `consumer` untuk menyimpan nilai kemunculan <i>Consumer</i>, dan `corporate` untuk menyimpan nilai kemunculan <i>Corporate</i>.
+  
+  Lalu, pada bagian <i>main</i>-nya, terdapat command berikut:
+  ```
+  {
+    segment = $8;
+    if (NR != 1) {
+        if (segment == "Home Office") {
+            homeOffice++;
+        }
+        else if (segment == "Consumer") {
+            consumer++;
+        }
+        else if (segment == "Corporate") {
+            corporate++;
+        }
+    }
+  }
+  ```
+   Kemudian membuat inisial variabel agar lebih mudah dalam pembacaan kode, dengan `segment = $8`. Pada pengondisian `NR atau <i>Number of Row</i> != 1` maksudnya adalah agar bagian paling atas data (<i>header</i>) sendiri tidak di-<i>passing</i>. Lalu, ditambahkan kondisi untuk menghitung nilai kemunculan tiap-tiap segmennya, jika `segment == "Home Office"`, variabel `homeOffice` akan di-<i>counter</i>, jika `segment == "Consumer"`, variabel `consumer` akan di-<i>counter</i>, dan jika `segment == "Corporate"`, variabel `corporate` akan di-<i>counter</i>.
+   
+   Pada akhir script nomor 2C bagian END:
+  ```
+  END {
+    if (homeOffice < consumer && homeOffice < corporate) {
+        leastSegment = "Home Office";
+        leastTransaction = homeOffice;
+    }
+    
+    else if (consumer < homeOffice && consumer < corporate) {
+        leastSegment = "Consumer";
+        leastTransaction = consumer;
+    }
+    else if (corporate < homeOffice && corporate < consumer) {
+        leastSegment = "Corporate";
+        leastTransaction = corporate;
+    }
+    printf "Tipe segmen customer yang penjualannya paling sedikit adalah %s dengan %d transaksi.\n\n", leastSegment, leastTransaction;
+  } ' Laporan-TokoShiSop.tsv >> hasil.txt
+  ```
+  Bagian ini digunakan sebagai output nama dan formatnya disesuaikan dengan permintaan soal. Di sini menggunakan pengondisian untuk mencari nilai terkecil (penjualan paling sedikit). Jika `homeOffice < consumer && homeOffice < corporate`, maka variabel `leastSegment` menjadi <i>Home Office</i> dan `leastTransaction` akan sama dengan variabel `homeOffice`, berlaku sama dengan segmen lainnya. "<i>Laporan-TokoShisop.tsv</i>" sendiri adalah source file data yang dipakai dalam pemrosesan program yang kemudian hasilnya dimasukkan ke dalam "<i>hasil.txt</i>".
+
 ### 2D ###
 
 - <b>SOAL</b>
   
   TokoShiSop membagi wilayah bagian (<i>region</i>) penjualan menjadi empat bagian, antara lain: <i>Central</i>, <i>East</i>, <i>South</i>, dan <i>West</i>. Manis ingin mencari <b>wilayah bagian (region) yang memiliki total keuntungan (profit) paling sedikit</b> dan <b>total keuntungan wilayah tersebut</b>.
+  
+- <b>JAWABAN</b>
+
+  Pada bagian awal soal 2D:
+  ```
+  BEGIN {
+    central = 0;
+    east = 0;
+    south = 0;
+    west = 0;
+  }
+  ```
+  Pertama kita menginisialisasi variabel untuk menjalankan program. `central` untuk menyimpan nilai kemunculan <i>Central</i>, `east` untuk menyimpan nilai kemunculan <i>East</i>, `south` untuk menyimpan nilai kemunculan <i>South</i>, dan `west` untuk menyimpan nilai kemunculan <i>West</i>.
+  
+  Lalu, pada bagian <i>main</i>-nya, terdapat command berikut:
+  ```
+  {
+    region = $13;
+    profit = $21;
+    if (NR != 1) {
+        if (region == "Central") {
+            central += profit;
+        }
+        else if (region == "East") {
+            east += profit;
+        }
+        else if (region == "South") {
+            south += profit;
+        }
+        else if (region == "West") {
+            west += profit;
+        }
+    }
+  }
+  ```
+   Kemudian membuat inisial variabel agar lebih mudah dalam pembacaan kode, dengan `region = $13` dan `profit = $21`. Pada pengondisian `NR atau <i>Number of Row</i> != 1` maksudnya adalah agar bagian paling atas data (<i>header</i>) sendiri tidak di-<i>passing</i>. Lalu, ditambahkan kondisi untuk menghitung nilai kemunculan tiap-tiap regionnya, jika `region == "Central"`, variabel `central` akan ditambah nilai variabel `profit`, jika `region == "East"`, variabel `east` akan ditambah nilai variabel `profit`, jika `region == "South"`, variabel `south` akan ditambah nilai variabel `profit`, dan jika `region == "West"`, variabel `west` akan ditambah nilai variabel `profit`.
+   
+   Pada akhir script nomor 2C bagian END:
+  ```
+  END {
+    if (central < east && central < south && central < west) {
+        leastRegion = "Central";
+        leastProfit = central;
+    }
+    
+    else if (east < central && east < south && east < west) {
+        leastRegion = "East";
+        leastProfit = east;
+    }
+    else if (south < central && south < east && south < west) {
+        leastRegion = "South";
+        leastProfit = south;
+    }
+    else if (west < central && west < east && west < south) {
+        leastRegion = "West";
+        leastProfit = west;
+    }
+    printf "Wilayah bagian (region) yang memiliki total keuntungan (profit) yang paling sedikit adalah %s dengan total keuntungan %.3f.\n", leastRegion, leastProfit;
+  } ' Laporan-TokoShiSop.tsv >> hasil.txt
+  ```
+  Bagian ini digunakan sebagai output nama dan formatnya disesuaikan dengan permintaan soal. Di sini menggunakan pengondisian untuk mencari nilai terkecil (penjualan paling sedikit). Jika `central < east && central < south && central < west`, maka variabel `leastRegion` menjadi <i>Central</i> dan `leastProfit` akan sama dengan variabel `central`, berlaku sama dengan region lainnya. "<i>Laporan-TokoShisop.tsv</i>" sendiri adalah source file data yang dipakai dalam pemrosesan program yang kemudian hasilnya dimasukkan ke dalam "<i>hasil.txt</i>".
 
 ### 2E ###
 
 - <b>SOAL</B>
   
   Agar mudah dibaca oleh Manis, Clemong, dan Steven, kamu diharapkan bisa membuat sebuah script yang akan menghasilkan file “<i>hasil.txt</i>”
+
+- <b>JAWABAN</b>
+
+  Pada tiap akhir bagian AWK soal 2, selalu ditambahkan:
+  ```
+  Laporan-TokoShiSop.tsv >> hasil.txt
+  ```
+  Agar hasilnya dimasukkan ke dalam "<i>hasil.txt</i>".
   
 ## SOAL 3 ##
   
