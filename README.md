@@ -67,6 +67,42 @@ Ryujin baru saja diterima sebagai IT support di perusahaan Bukapedia. Dia diberi
 - <b>SOAL</b>
 
   Semua informasi yang didapatkan pada poin <b>b</b> dituliskan ke dalam file `error_message.csv` dengan header <b>Error,Count</b> yang kemudian diikuti oleh daftar pesan error dan jumlah kemunculannya <b>diurutkan</b> berdasarkan jumlah kemunculan pesan error dari yang terbanyak.
+
+- <b>JAWABAN</b>
+
+  Menggunakan command ini:
+  ```
+  echo "Error,Count" > error_message.csv
+  echo "$listError" | while read errors
+
+  do
+      errorName=$(echo $errors | cut -d " " -f 2-)
+      errorTotal=$(echo $errors | cut -d " " -f 1)
+      echo "$errorName,$errorTotal" >> error_message.csv
+  done
+  ```
+  Pesan "Error,Count" dikirim ke "<i>error_message.csv</i>". Lalu pada `$listError` menjadi input bagi perulangan <i>while</i> dan dimasukkan ke variabel `errors`. Deskripsi Error dan jumlahnya dimasukkan ke variabel `errorName` dan `errorTotal`. Pada `errorName`, digunakan command `echo` untuk mencetak output dari command `cut` kembali dengan option `cut -d " " -f 2-` untuk memotong <b>field kedua sampai akhir</b> dengan patokan <i>char</i> " " (spasi). Pada `errorTotal`, command `echo` untuk mencetak output dari command `cut` kembali dengan option `cut -d " " -f 1` untuk memotong <b>field pertama</b> dengan patokan <i>char</i> " " (spasi). Terakhir, hasilnya dimasukkan ke "<i>error_message.csv</i>".
+
+### 1E ###
+
+- <b>SOAL</b>
+
+  Semua informasi yang didapatkan pada poin <b>c</b> dituliskan ke dalam file `user_statistic.csv` dengan header <b>Username,INFO,ERROR</b> <b>diurutkan</b> berdasarkan username secara <b><i>ascending</i></b>.
+
+- <b>JAWABAN</b>
+
+  Menggunakan command ini:
+  ```
+  echo "Username,INFO,ERROR" > user_statistic.csv
+  echo "$listUser," | while read users
+
+  do
+      totalUserError=$(grep --count "ERROR.*($users)" syslog.log)
+      totalUserInfo=$(grep --count "INFO.*($users)" syslog.log)
+      echo "$users,$totalUserInfo,$totalUserError" >> user_statistic.csv
+  done
+  ```
+  Pesan "Error,Count" dikirim ke "<i>error_message.csv</i>". Lalu pada `$listUser` yang berisi list User tadi menjadi input bagi perulangan <i>while</i> dan dimasukkan ke variabel `users`. Nama user dan jumlahnya dimasukkan ke variabel `totalUserError` dan `totalUserInfo`. Lalu, untuk menghitung jumlah user dan error tiap usernya, bisa menggunakan command `grep` dengan option `--count` yang akan menghitung setiap keyword yang muncul per baris dalam hal ini `$users`. Terakhir, hasilnya dimasukkan ke "<i>user_statistic.csv</i>".
  
 ## SOAL 2 ##
 
