@@ -19,12 +19,9 @@ Ryujin baru saja diterima sebagai IT support di perusahaan Bukapedia. Dia diberi
 
   Menggunakan command ini:
   ```
-  error=$(grep -o -E "ERROR" syslog.log)
-  info=$(grep -o -E "INFO" syslog.log)
-  totalError=$(grep --count "ERROR" syslog.log)
-  totalInfo=$(grep --count "INFO" syslog.log)
+  listLog=$(grep -o "ticky.*" syslog.log | cut -f -2)
   ```
-  Untuk mengumpulkan informasi dari log aplikasi yang ada di `syslog.log`, menggunakan command `grep` yang mengambil kata kunci, di sini memakai "ERROR" atau "INFO" untuk mencarinya. Option `-o` digunakan untuk print hasil yang hanya sesuai kata kunci, lalu option `-E` untuk <i>extended regular expression</i> dan akan dimasukkan ke variabel `error` ataupun `info`. Lalu, untuk menghitung jumlah error, bisa menggunakan option `--count` yang akan menghitung setiap keyword yang muncul per baris dan akan dimasukkan ke variabel `totalError` ataupun `totalInfo`.
+  Untuk mengumpulkan informasi dari log aplikasi yang ada di `syslog.log`, menggunakan command `grep` yang mengambil kata kunci, di sini memakai "ticky.*emphasis*" untuk mencarinya. Lalu command `cut` mengambil deskripsi error dengan delimiter dan option yang sesuai.
   
 ### 1B ###
 
@@ -36,9 +33,9 @@ Ryujin baru saja diterima sebagai IT support di perusahaan Bukapedia. Dia diberi
 
   Menggunakan command ini:
   ```
-  listError=$(grep -o "ERROR.*" syslog.log | cut -d " " -f 2- | cut -d "(" -f 1 | sort -V | uniq -c | sort -n)
+  listError=$(grep -o "ERROR.*" syslog.log | cut -d " " -f 2- | cut -d "(" -f 1 | sort -V | uniq -c | sort -n -r)
   ```
-  Untuk menampilkan semua pesan error dari log aplikasi yang ada di `syslog.log` serta jumlah kemunculannya, menggunakan command `grep` yang mengambil kata kunci, di sini memakai "ERROR.*emphasis*" untuk mencarinya. Sebelumnya di sini menggunakan operator `|` pipe untuk mengubah input ke command selanjutnya. Option `-o` digunakan untuk print hasil yang hanya sesuai kata kunci, lalu command `cut` mengambil deskripsi error dengan delimiter dan option yang sesuai. Setelah itu dirapikan menggunakan command `sort` dengan option `-V`, dan tiap error-error yang mempunyai duplikat akan dihitung dengan command `uniq` dengan option `-c`. Terakhir di-<i>sort</i> secara ascending (paling kecil) menggunakan command `sort` dengan option `-n`.
+  Untuk menampilkan semua pesan error dari log aplikasi yang ada di `syslog.log` serta jumlah kemunculannya, menggunakan command `grep` yang mengambil kata kunci, di sini memakai "ERROR.*emphasis*" untuk mencarinya. Sebelumnya di sini menggunakan operator `|` pipe untuk mengubah input ke command selanjutnya. Option `-o` digunakan untuk print hasil yang hanya sesuai kata kunci, lalu command `cut` mengambil deskripsi error dengan delimiter dan option yang sesuai. Setelah itu dirapikan menggunakan command `sort` dengan option `-V`, dan tiap error-error yang mempunyai duplikat akan dihitung dengan command `uniq` dengan option `-c`. Terakhir di-<i>sort</i> secara descending (paling besar) menggunakan command `sort` dengan option `-n` dan `-r`.
 
 ### 1C ###
 
@@ -94,7 +91,7 @@ Ryujin baru saja diterima sebagai IT support di perusahaan Bukapedia. Dia diberi
   Menggunakan command ini:
   ```
   echo "Username,INFO,ERROR" > user_statistic.csv
-  echo "$listUser," | while read users
+  echo "$listUser" | while read users
 
   do
       totalUserError=$(grep --count "ERROR.*($users)" syslog.log)
