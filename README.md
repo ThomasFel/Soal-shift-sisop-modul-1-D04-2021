@@ -16,7 +16,7 @@ Kelompok D-04
 - <b>JAWABAN</b>
 
   Menggunakan command ini:
-  ```
+  ```shell
   listLog=$(grep -o "ticky.*" syslog.log | cut -f -2)
   ```
   Untuk mengumpulkan informasi dari log aplikasi yang ada di `syslog.log`, menggunakan command `grep` yang mengambil kata kunci, di sini memakai "ticky.*emphasis*" untuk mencarinya. Lalu command `cut` mengambil deskripsi error dengan delimiter dan option yang sesuai.
@@ -30,7 +30,7 @@ Kelompok D-04
 - <b>JAWABAN</b>
 
   Menggunakan command ini:
-  ```
+  ```shell
   listError=$(grep -o "ERROR.*" syslog.log | cut -d " " -f 2- | cut -d "(" -f 1 | sort -V | uniq -c | sort -n -r)
   ```
   Untuk menampilkan semua pesan error dari log aplikasi yang ada di `syslog.log` serta jumlah kemunculannya, menggunakan command `grep` yang mengambil kata kunci, di sini memakai "ERROR.*emphasis*" untuk mencarinya. Sebelumnya di sini menggunakan operator `|` pipe untuk mengubah input ke command selanjutnya. Option `-o` digunakan untuk print hasil yang hanya sesuai kata kunci, lalu command `cut` mengambil deskripsi error dengan delimiter dan option yang sesuai. Setelah itu dirapikan menggunakan command `sort` dengan option `-V`, dan tiap error-error yang mempunyai duplikat akan dihitung dengan command `uniq` dengan option `-c`. Terakhir di-<i>sort</i> secara descending (paling besar) menggunakan command `sort` dengan option `-n` dan `-r`.
@@ -44,13 +44,13 @@ Kelompok D-04
 - <b>JAWABAN</b>
 
   Menggunakan command ini:
-  ```
+  ```shell
   listUser=$(cut -d"(" -f 2 < syslog.log | cut -d ")" -f 1 | sort | uniq)
   ```
   Untuk menyimpan list nama user dari log "ERROR" aplikasi yang ada di `syslog.log`, menggunakan command `cut` yang memotong string, di sini memakai option `-d"(" -f 2 < syslog.log` untuk memotong <b>field kedua sampai pertama</b> dengan patokan <i>char</i> "(". Sebelumnya di sini menggunakan operator `|` pipe untuk mengubah input ke command selanjutnya. Kemudian, menggunakan command `cut` kembali dengan option `cut -d ")" -f 1` untuk memotong <b>field pertama</b> dengan patokan <i>char</i> ")". Setelah itu dirapikan menggunakan command `sort`, dan tiap error-error yang mempunyai duplikat akan dihapus dan hanya akan muncul 1 kali saja.
   
   Lalu dengan command ini:
-  ```
+  ```shell
   userError=$(grep -o "ERROR.*" syslog.log | cut -f 2- -d"(" | cut -d ")" -f 1 | sort | uniq -c | sort -n)
   userInfo=$(grep -o "INFO.*" syslog.log | cut -f 2- -d"(" | cut -d ")" -f 1 | sort | uniq -c | sort -n)
   ```
@@ -66,7 +66,7 @@ Kelompok D-04
 - <b>JAWABAN</b>
 
   Menggunakan command ini:
-  ```
+  ```shell
   echo "Error,Count" > error_message.csv
   echo "$listError" | while read errors
 
@@ -87,7 +87,7 @@ Kelompok D-04
 - <b>JAWABAN</b>
 
   Menggunakan command ini:
-  ```
+  ```shell
   echo "Username,INFO,ERROR" > user_statistic.csv
   echo "$listUser" | while read users
 
@@ -114,7 +114,7 @@ Kelompok D-04
 - <b>JAWABAN</b>
 
   Pada soal ini digunakan AWK dalam penyelesaiannya.
-  ```
+  ```shell
   BEGIN {
     maxID = 0;
     max = 0;
@@ -123,7 +123,7 @@ Kelompok D-04
   Pertama kita menginisialisasi variabel untuk menjalankan program. `maxID` untuk menyimpan nilai maksimum <i>RowID</i> dan `max` untuk menyimpan nilai <i>profit percentage</i> terbesar.
   
   Lalu, pada bagian <i>main</i>-nya, terdapat command berikut:
-  ```
+  ```shell
   {
     rowID = $1;
     sales = $18;
@@ -141,7 +141,7 @@ Kelompok D-04
   Kemudian membuat inisial variabel agar lebih mudah dalam pembacaan kode, dengan `rowID = $1`, `sales = $18`, dan `profit = $21`. Pada pengondisian `NR atau <i>Number of Row</i> != 1` maksudnya adalah agar bagian paling atas data (<i>header</i>) sendiri tidak di-<i>passing</i>. Di dalam pengondisian itu, dilakukan pendefinisian `costPrice = sales - profit`, juga `profitPercentage` sesuai permintaan soal. Lalu, jika `max <= profitPercentage`, nilai `max` akan sama dengan `profitPercentage` dan `maxID` sama dengan `rowID`, hal ini dilakukan untuk mendapat nilai terbesar. Pengondisian akan terus terjadi selama masih bernilai <b>TRUE</b>, sehingga nilai akan terus ter-<i>update</i>.
   
   Pada akhir script nomor 2A bagian END:
-  ```
+  ```shell
   END {
     printf "Transaksi terakhir dengan profit percentage terbesar yaitu %d dengan persentase %.2f%%.\n\n", maxID, max;
   } ' Laporan-TokoShiSop.tsv >> hasil.txt
@@ -157,7 +157,7 @@ Kelompok D-04
 - <b>JAWABAN</b>
 
   Pada bagian awal soal 2B:
-  ```
+  ```shell
   BEGIN {
     printf "Daftar nama customer di Albuquerque pada tahun 2017 antara lain: \n";
   }
@@ -165,7 +165,7 @@ Kelompok D-04
   Pertama kita mengeluarkan output yang sesuai dengan permintaan soal.
   
   Lalu, pada bagian <i>main</i>-nya, terdapat command berikut:
-  ```
+  ```shell
   {
     orderDate = $3;
     city = $10;
@@ -180,7 +180,7 @@ Kelompok D-04
    Kemudian membuat inisial variabel agar lebih mudah dalam pembacaan kode, dengan `orderDate = $3` dan `city = $10`. Dalam row `orderDate` yang ada di "<i>Laporan-TokoShisop.tsv</i>", karena formatnya <b>DD-MM-YY</b>, digunakan fungsi <b>substr</b> untuk mendapatkan nilai tahun yang kemudian dimasukkan ke variabel `years`. Pada pengondisian `NR atau <i>Number of Row</i> != 1` maksudnya adalah agar bagian paling atas data (<i>header</i>) sendiri tidak di-<i>passing</i>. Lalu, karena diminta tahun sama dengan 2017 dan kotanya Albuquerque ditambahkan jika `years == 17 && city == "Albuquerque"`, nilai yang berisi nama-nama orang di kolom 7 ($7) akan dimasukkan ke dalam array `namesArr`.
    
    Pada akhir script nomor 2B bagian END:
-  ```
+  ```shell
   END {
     for (nameArr in namesArr) {
         print nameArr;
@@ -199,7 +199,7 @@ Kelompok D-04
 - <b>JAWABAN</b>
 
   Pada bagian awal soal 2C:
-  ```
+  ```shell
   BEGIN {
     homeOffice = 0;
     consumer = 0;
@@ -209,7 +209,7 @@ Kelompok D-04
   Pertama kita menginisialisasi variabel untuk menjalankan program. `homeOffice` untuk menyimpan nilai kemunculan <i>Home Office</i>, `consumer` untuk menyimpan nilai kemunculan <i>Consumer</i>, dan `corporate` untuk menyimpan nilai kemunculan <i>Corporate</i>.
   
   Lalu, pada bagian <i>main</i>-nya, terdapat command berikut:
-  ```
+  ```shell
   {
     segment = $8;
     if (NR != 1) {
@@ -228,7 +228,7 @@ Kelompok D-04
    Kemudian membuat inisial variabel agar lebih mudah dalam pembacaan kode, dengan `segment = $8`. Pada pengondisian `NR atau <i>Number of Row</i> != 1` maksudnya adalah agar bagian paling atas data (<i>header</i>) sendiri tidak di-<i>passing</i>. Lalu, ditambahkan kondisi untuk menghitung nilai kemunculan tiap-tiap segmennya, jika `segment == "Home Office"`, variabel `homeOffice` akan di-<i>counter</i>, jika `segment == "Consumer"`, variabel `consumer` akan di-<i>counter</i>, dan jika `segment == "Corporate"`, variabel `corporate` akan di-<i>counter</i>.
    
    Pada akhir script nomor 2C bagian END:
-  ```
+  ```shell
   END {
     if (homeOffice < consumer && homeOffice < corporate) {
         leastSegment = "Home Office";
@@ -257,7 +257,7 @@ Kelompok D-04
 - <b>JAWABAN</b>
 
   Pada bagian awal soal 2D:
-  ```
+  ```shell
   BEGIN {
     central = 0;
     east = 0;
@@ -268,7 +268,7 @@ Kelompok D-04
   Pertama kita menginisialisasi variabel untuk menjalankan program. `central` untuk menyimpan nilai kemunculan <i>Central</i>, `east` untuk menyimpan nilai kemunculan <i>East</i>, `south` untuk menyimpan nilai kemunculan <i>South</i>, dan `west` untuk menyimpan nilai kemunculan <i>West</i>.
   
   Lalu, pada bagian <i>main</i>-nya, terdapat command berikut:
-  ```
+  ```shell
   {
     region = $13;
     profit = $21;
@@ -291,7 +291,7 @@ Kelompok D-04
    Kemudian membuat inisial variabel agar lebih mudah dalam pembacaan kode, dengan `region = $13` dan `profit = $21`. Pada pengondisian `NR atau <i>Number of Row</i> != 1` maksudnya adalah agar bagian paling atas data (<i>header</i>) sendiri tidak di-<i>passing</i>. Lalu, ditambahkan kondisi untuk menghitung nilai kemunculan tiap-tiap regionnya, jika `region == "Central"`, variabel `central` akan ditambah nilai variabel `profit`, jika `region == "East"`, variabel `east` akan ditambah nilai variabel `profit`, jika `region == "South"`, variabel `south` akan ditambah nilai variabel `profit`, dan jika `region == "West"`, variabel `west` akan ditambah nilai variabel `profit`.
    
    Pada akhir script nomor 2C bagian END:
-  ```
+  ```shell
   END {
     if (central < east && central < south && central < west) {
         leastRegion = "Central";
@@ -324,7 +324,7 @@ Kelompok D-04
 - <b>JAWABAN</b>
 
   Pada tiap akhir bagian AWK soal 2, selalu ditambahkan:
-  ```
+  ```shell
   Laporan-TokoShiSop.tsv >> hasil.txt
   ```
   Agar hasilnya dimasukkan ke dalam "<i>hasil.txt</i>".
@@ -339,7 +339,7 @@ Kelompok D-04
   
 - <b>JAWABAN</B>
   
-  ```
+  ```shell
   max=23
   file=1
     for ((count=1;count<=max;count=count+1))
@@ -349,7 +349,7 @@ Kelompok D-04
   ```
   Pertama me-looping untuk men-download file dari url yang diinginkan dengan mendeklarasikan variabel `max` sebagai batas jumlah file yang akan di-download. Kemudian variabel `file` digunakan sebagai index untuk setiap file yang di-download. Dan juga di awal looping dideklarasikan variabel `issame` sebagai penanda untuk file yang akan dicek sama tidaknya. Untuk men-download file digunakan `wget` dan juga ditambahkan command `-a` untuk menyimpan log ke `Foto.log` dan juga `-O` untuk rename file menjadi kitten agar mudah untuk melakukan pengecekan dan merename.
   
-  ```
+  ```shell
   if [ $count -eq 1 ]
    then
      mv kitten `printf "Koleksi_%02d" "$file"`
@@ -358,7 +358,7 @@ Kelompok D-04
   ```
   Kemudian di dalam loop sebelum melakukan looping untuk melakukan pengecekan kesamaan file, untuk file yang pertama kali di-download langsung di rename dengan menggunakan `printf "Koleksi_%02d" "$file"` agar mendapatkan format penamaan file (01, 02, ..., dst) dan juga karena untuk file yang pertama tidak ada file lain untuk di-compare. Setelah dilakukan rename maka variabel `file` akan di-increment.
   
-  ```
+  ```shell
   for ((count2=1;count2<file;count2=count2+1))
    do
       if [ $count -eq 1 ]
@@ -379,7 +379,7 @@ Kelompok D-04
    ```
    Kemudian dilakukan looping baru didalam looping yang sebelumnya untuk mengecek kesamaan setiap file, namun sebelum itu dicek apabila index untuk looping pertama masih di 1 maka akan langsung keluar dari looping kedua. Dalam looping kedua yang dilakukan pertama yaitu mendeklarasikan variabel `nama` untuk nama filenya dengan index looping kedua. Kemudian dideklarasikan pula variabel `sama` untuk menyimpan informasi yang dihasilkan dari hasil `cmp`. `cmp` merupakan syntax untuk membandingkan 2 buah file berdasarkan bytenya sehingga apabila ada 2 file yang sama maka akan menghasilkan output NULL. Kemudian setelah itu dilakukan pengecekkan dengan menggunakan perintah `-z` untuk membandingkan apabila variabel `sama` menghasilkan NULL atau tidak. Apabila menghasilkan NULL maka variabel `issame` akan sama dengan 1 untuk menandakan bahwa file yang sedang dicek merupakan file yang sama, oleh karena itu loop akan di-break dan program akan melaksanakan perintah selanjutnya di luar loop kedua. Namun apabila file tidak sama, maka akan terus dilakukan pengecakan antar file sampai batas looping.
    
-   ```
+   ```shell
    if [ $count -gt 1 ]
    then
      if [ $issame -eq 1 ]
@@ -405,7 +405,29 @@ Kelompok D-04
 - <b>SOAL</B>
   
   Karena Kuuhaku malas untuk menjalankan script tersebut secara manual, ia juga meminta kalian untuk menjalankan script tersebut <b>sehari sekali pada jam 8 malam</b> untuk tanggal-tanggal tertentu setiap bulan, yaitu dari <b>tanggal 1 tujuh hari sekali</b> (1,8,...), serta dari <b>tanggal 2 empat hari sekali</b> (2,6,...). Supaya lebih rapi, gambar yang telah diunduh beserta <b>log-nya, dipindahkan ke folder</b> dengan nama <b>tanggal unduhnya</b> dengan <b>format</b> "DD-MM-YYYY" (contoh : "13-03-2023").
+
+- <b>JAWABAN (SOAL3B.SH)</B>
   
+  ```shell
+  folder=/home/thomasfelix/PRAKTIKUM1/SOAL3/soal3a.sh
+  file=$(date +"%d-%m-%Y")
+
+  bash $folder
+
+  mkdir $file
+
+  mv Koleksi_* $file
+  mv Foto.log $file
+  ```
+  Pertama mendefinisikan path directory dari `soal3a.sh` ke dalam variabel `folder`, kemudian dijalankan dengan bash. Setelah itu buat folder baru dengan command `mkdir` dengan nama folder dari variabel `file` yang telah didefinisikan agar keluar output tanggal saat ini dengan format DD-MM-YYYY. Terakhir, pindahkan folder yang mengandung nama <i>Koleksi_</i> dan <i>Foto.log</i> ke folder baru yang telah dibuat tadi.
+
+- <b>JAWABAN (CRON3B.TAB)</B>
+  
+  ```shell
+  0 20 1-31/7,2-31/4 * * cd /home/thomasfelix/PRAKTIKUM1/SOAL3 && bash soal3b.sh
+  ```
+  Menjalankan script `soal3b.sh` ketika pukul 20.00 (8 malam), dalam interval tanggal 1-31 tiap 7 hari sekali, dan interval tanggal 2-31 tiap 4 hari sekali tiap bulannya.
+
 ### 3C ###
   
 - <b>SOAL</B>
