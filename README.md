@@ -7,8 +7,6 @@ Kelompok D-04
 
 ## SOAL 1 ##
 
-Ryujin baru saja diterima sebagai IT support di perusahaan Bukapedia. Dia diberikan tugas untuk membuat laporan harian untuk aplikasi internal perusahaan, <i>ticky</i>. Terdapat 2 laporan yang harus dia buat, yaitu laporan <b>daftar peringkat pesan error</b> terbanyak yang dibuat oleh <i>ticky</i> dan laporan <b>penggunaan user</b> pada aplikasi <i>ticky</i>. Untuk membuat laporan tersebut, Ryujin harus melakukan beberapa hal berikut:
-
 ### 1A ###
 
 - <b>SOAL</b>
@@ -102,10 +100,6 @@ Ryujin baru saja diterima sebagai IT support di perusahaan Bukapedia. Dia diberi
   Pesan "Error,Count" dikirim ke "<i>error_message.csv</i>". Lalu pada `$listUser` yang berisi list User tadi menjadi input bagi perulangan <i>while</i> dan dimasukkan ke variabel `users`. Nama user dan jumlahnya dimasukkan ke variabel `totalUserError` dan `totalUserInfo`. Lalu, untuk menghitung jumlah user dan error tiap usernya, bisa menggunakan command `grep` dengan option `--count` yang akan menghitung setiap keyword yang muncul per baris dalam hal ini `$users`. Terakhir, hasilnya dimasukkan ke "<i>user_statistic.csv</i>".
  
 ## SOAL 2 ##
-
-Steven dan Manis mendirikan sebuah <i>startup</i> bernama “TokoShiSop”. Sedangkan kamu dan Clemong adalah karyawan pertama dari TokoShiSop. Setelah tiga tahun bekerja, Clemong diangkat menjadi manajer penjualan TokoShiSop, sedangkan kamu menjadi kepala gudang yang mengatur keluar masuknya barang.
-
-Tiap tahunnya, TokoShiSop mengadakan Rapat Kerja yang membahas bagaimana hasil penjualan dan strategi kedepannya yang akan diterapkan. Kamu sudah sangat menyiapkan sangat matang untuk raker tahun ini. Tetapi tiba-tiba, Steven, Manis, dan Clemong meminta kamu untuk mencari beberapa kesimpulan dari data penjualan “<i>[Laporan-TokoShiSop.tsv](https://drive.google.com/file/d/16GuWWg3tZpzO7lTKmyVF6I9JPFYJQFJ8/view?usp=sharing)</i>”.
 
 ### 2A ###
 
@@ -336,8 +330,6 @@ Tiap tahunnya, TokoShiSop mengadakan Rapat Kerja yang membahas bagaimana hasil p
   Agar hasilnya dimasukkan ke dalam "<i>hasil.txt</i>".
   
 ## SOAL 3 ##
-  
-Kuuhaku adalah orang yang sangat suka mengoleksi foto-foto digital, namun Kuuhaku juga merupakan seorang yang pemalas sehingga ia tidak ingin repot-repot mencari foto, selain itu ia juga seorang pemalu, sehingga ia tidak ingin ada orang yang melihat koleksinya tersebut, sayangnya ia memiliki teman bernama Steven yang memiliki rasa kepo yang luar biasa. Kuuhaku pun memiliki ide agar Steven tidak bisa melihat koleksinya, serta untuk mempermudah hidupnya, yaitu dengan meminta bantuan kalian. Idenya adalah :
   
  ### 3A ###
   
