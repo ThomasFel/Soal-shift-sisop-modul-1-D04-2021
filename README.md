@@ -396,7 +396,7 @@ Kelompok D-04
   
     [![ss-output-no-3a.png](https://i.postimg.cc/jSWx4D40/ss-output-no-3a.png)](https://postimg.cc/qNTHkMFj)
   
-  Ini merupakan output dari soal no 3A. Di sini bisa dilihat jumlah foto yang di-download tidak sesuai dengan jumlah yang ditentukan di soal. Ini dikarenakan di dalam script ada algoritma untuk mem-filter file yang memiliki duplikat dan tidak perlu mendownload lagi file tersebut sehingga jumlah file yang ada sekarang merupakan jumlah file yang sudah selesai di-remove file yang memiliki duplikat.
+  Ini merupakan output dari soal no. 3A. Di sini bisa dilihat jumlah foto yang di-download tidak sesuai dengan jumlah yang ditentukan di soal. Ini dikarenakan di dalam script ada algoritma untuk mem-filter file yang memiliki duplikat dan tidak perlu mendownload lagi file tersebut sehingga jumlah file yang ada sekarang merupakan jumlah file yang sudah selesai di-remove file yang memiliki duplikat.
   
   Untuk soal no. 3A hambatan yang dialami yaitu error ketika me-rename nama file karena saat me-rename file yang pertama di-download tidak ikut ter-rename, namun bisa diselesaikan dengan mengecualikan file pertama di dalam looping. Kemudian hambatan yang lainnya yaitu di saat harus remove dan rename nama filenya karena di awal ada banyak penamaannya yang berantakan sehingga sulit untuk mengetahui indexing filenya, namun hal tersebut bisa diatasi dengan menambahkan variabel file untuk indexing-nya. Lalu hambatan yang terakhir yaitu untuk mem-filter file duplikat karena isi looping kedua yang berantakan sehingga indexing untuk comparenya kurang pas, hal ini dapat diatasi dengan merapihkan kondisi looping kedua dan menambah variabel `file`.
       
