@@ -344,7 +344,64 @@ Kuuhaku adalah orang yang sangat suka mengoleksi foto-foto digital, namun Kuuhak
 - <b>SOAL</B>
   
   Membuat script untuk <b>mengunduh</b> 23 gambar dari "https://loremflickr.com/320/240/kitten" serta <b>menyimpan</b> log-nya ke file "<i>Foto.log</i>". Karena gambar yang diunduh acak, ada kemungkinan gambar yang sama terunduh lebih dari sekali, oleh karena itu kalian harus <b>menghapus</b> gambar yang sama (tidak perlu mengunduh gambar lagi untuk menggantinya). Kemudian menyimpan gambar-gambar tersebut dengan nama "Koleksi_XX" dengan nomor yang berurutan <b>tanpa ada nomor yang hilang</b> (contoh : Koleksi_01, Koleksi_02, ...)
+  
+- <b>JAWABAN</B>
+  
+  ```
+  max=23
+  file=1
+    for ((count=1;count<=max;count=count+1))
+    do
+      issame=0
+      wget "https://loremflickr.com/320/240/kitten" -a Foto.log -O kitten
+  ```
+  Pertama melooping untuk mendownload file dari url yang diinginkan dengan mendeklarasikan variabel `max` sebagai batas jumlah file yang akan didownload. kemudian variabel `file` digunakan sebagai index untuk setiap file yang didownload. dan juga di awal looping dideklarasikan variabel `issame` sebagai penanda untuk file yang akan dicek sama tidaknya. untuk mendownload file digunakan `wget` dan juga ditambahkan command `-a` untuk menyimpan log ke `Foto.log` dan juga `-O` untuk rename file menjadi kitten agar mudah untuk melakukan pengecekan dan merename.
+  
+  ```
+  if [ $count -eq 1 ]
+   then
+     mv kitten `printf "Koleksi_%02d" "$file"`
+     file=$(($file+1)) 
+   fi
+  ```
+  Kemudian didalam loop sebelum melakukan looping untuk melakukan pengecekan kesamaan file, untuk file yang pertama kali di download langsung di rename dengan menggunakan `printf "Koleksi_%02d" "$file"` agar mendapatkan format penamaan file (01,02,...dst) dan juga karena untuk file yang pertama tidak ada file lain untuk di compare. Setelah dilakukan rename maka variabel `file` akan diincrement.
+  
+  ```
+  for ((count2=1;count2<file;count2=count2+1))
+   do
+      if [ $count -eq 1 ]
+      then break
+      fi
 
+      nama=`printf "Koleksi_%02d" "$count2"`
+      sama=`cmp $nama kitten -b`
+
+      if [ -z "$sama" ]
+      then
+        issame=1
+        break
+      else
+        issame=0
+      fi
+   done
+   ```
+   Kemudian dilakukan looping baru didalam looping yang sebelumnya untuk mengecek kesamaan setiap file, namun sebelum itu di cek apabila index untuk looping pertama masih di 1 maka akan langsung keluar dari looping kedua. Dalam looping kedua yang dilakukan pertama yaitu mendeklarasikan variabel `nama` untuk nama filenya dengan index looping kedua. kemudian di deklarasikan pula variabel `sama` untuk menyimpan informasi yang dihasilkan dari hasil `cmp`. `cmp` merupakan syntax untuk membandingkan 2 buah file berdasarkan bytenya sehingga apabila ada 2 file yang sama maka akan menghasilkan output NULL. Kemudian setelah itu dilakukan pengecekkan dengan menggunakan perintah `-z` untuk membandingkan apabila variabel `sama` menghasilkan null atau tidak. Apabila menghasilkan null maka variabel `issame` akan sama dengan 1 untuk menandakan bahwa file yang sedang dicek merupakan file yang sama oleh karena itu maka loop akan di break dan program akan melaksanakan perintah selanjutnya diluar loop kedua. namun apabila file tidak sama maka akan terus dilakukan pengecakan antar file sampai batas looping.
+   
+   ```
+   if [ $count -gt 1 ]
+   then
+     if [ $issame -eq 1 ]
+     then
+       rm kitten
+     else
+       mv kitten `printf "Koleksi_%02d" "$file"`
+       file=$(($file+1))
+     fi
+   fi
+  done
+  ```
+  Lalu diluar looping kedua yang digunakan syntax `if [ $count -gt 1 ]` untuk menghindari file pertama karena tidak ada perbandingan. kemudian apabila bukan file yang pertama akan dicek variabel `issame` apabila berisi satu yang menandakan file nya sama maka akan digunakan perintah `rm` untuk meremove file kemudian melanjutkan looping pertama, dan apabila variabel `issame` berisi 0 maka file yang sekarang bernama kitten akan di rename dengan menggunakan perintah `mv` menjadi nama file sesuai format dan kemudian variabel `file` akan diincrement dan looping untuk mendownload file dan mengecek kesamaannya akan dilanjutkan hingga batas max yaitu 23.
+      
  ### 3B ###
   
 - <b>SOAL</B>
