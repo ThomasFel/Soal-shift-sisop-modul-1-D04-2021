@@ -534,9 +534,9 @@ Kelompok D-04
   ```shell
   0 7 * * 1-5 cd /home/thomasfelix/PRAKTIKUM1/SOAL3 && bash soal3d.sh
   ```
-  Menjalankan script `soal3d.sh` pada pukul 07.00 (7 pagi), dalam interval Senin-Jumat (hari efektif kuliah) dalam tiap minggunya.
+  Menjalankan script `soal3d.sh` pada pukul 07.00 (7 pagi), dalam interval Senin-Jumat (hari efektif kuliah) tiap minggunya.
   
   ```shell
   0 18 * * 1-5 cd /home/thomasfelix/PRAKTIKUM1/SOAL3 && unzip -P $(date + "\%m\%d\%Y") Koleksi.zip && rm Koleksi.zip
   ```
-  Menjalankan unzip dengan password sesuai script `soal3d.sh` dan menghapus <i>Koleksi.zip</i> ketika semua file dan folder telah ter-unzip pada pukul 18.00 (6 malam), dalam interval Senin-Jumat (hari efektif kuliah) dalam tiap minggunya.
+  Menjalankan unzip dengan password sesuai script `soal3d.sh` dan menghapus <i>Koleksi.zip</i> ketika semua file dan folder telah ter-unzip pada pukul 18.00 (6 malam), dalam interval Senin-Jumat (hari efektif kuliah) tiap minggunya.
