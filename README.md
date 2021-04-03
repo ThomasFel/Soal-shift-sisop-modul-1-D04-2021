@@ -347,7 +347,7 @@ Kelompok D-04
       issame=0
       wget "https://loremflickr.com/320/240/kitten" -a Foto.log -O kitten
   ```
-  Pertama melooping untuk mendownload file dari url yang diinginkan dengan mendeklarasikan variabel `max` sebagai batas jumlah file yang akan didownload. kemudian variabel `file` digunakan sebagai index untuk setiap file yang didownload. dan juga di awal looping dideklarasikan variabel `issame` sebagai penanda untuk file yang akan dicek sama tidaknya. untuk mendownload file digunakan `wget` dan juga ditambahkan command `-a` untuk menyimpan log ke `Foto.log` dan juga `-O` untuk rename file menjadi kitten agar mudah untuk melakukan pengecekan dan merename.
+  Pertama me-looping untuk men-download file dari url yang diinginkan dengan mendeklarasikan variabel `max` sebagai batas jumlah file yang akan di-download. Kemudian variabel `file` digunakan sebagai index untuk setiap file yang di-download. Dan juga di awal looping dideklarasikan variabel `issame` sebagai penanda untuk file yang akan dicek sama tidaknya. Untuk men-download file digunakan `wget` dan juga ditambahkan command `-a` untuk menyimpan log ke `Foto.log` dan juga `-O` untuk rename file menjadi kitten agar mudah untuk melakukan pengecekan dan merename.
   
   ```
   if [ $count -eq 1 ]
@@ -356,7 +356,7 @@ Kelompok D-04
      file=$(($file+1)) 
    fi
   ```
-  Kemudian didalam loop sebelum melakukan looping untuk melakukan pengecekan kesamaan file, untuk file yang pertama kali di download langsung di rename dengan menggunakan `printf "Koleksi_%02d" "$file"` agar mendapatkan format penamaan file (01,02,...dst) dan juga karena untuk file yang pertama tidak ada file lain untuk di compare. Setelah dilakukan rename maka variabel `file` akan diincrement.
+  Kemudian di dalam loop sebelum melakukan looping untuk melakukan pengecekan kesamaan file, untuk file yang pertama kali di-download langsung di rename dengan menggunakan `printf "Koleksi_%02d" "$file"` agar mendapatkan format penamaan file (01, 02, ..., dst) dan juga karena untuk file yang pertama tidak ada file lain untuk di-compare. Setelah dilakukan rename maka variabel `file` akan di-increment.
   
   ```
   for ((count2=1;count2<file;count2=count2+1))
@@ -377,7 +377,7 @@ Kelompok D-04
       fi
    done
    ```
-   Kemudian dilakukan looping baru didalam looping yang sebelumnya untuk mengecek kesamaan setiap file, namun sebelum itu di cek apabila index untuk looping pertama masih di 1 maka akan langsung keluar dari looping kedua. Dalam looping kedua yang dilakukan pertama yaitu mendeklarasikan variabel `nama` untuk nama filenya dengan index looping kedua. kemudian di deklarasikan pula variabel `sama` untuk menyimpan informasi yang dihasilkan dari hasil `cmp`. `cmp` merupakan syntax untuk membandingkan 2 buah file berdasarkan bytenya sehingga apabila ada 2 file yang sama maka akan menghasilkan output NULL. Kemudian setelah itu dilakukan pengecekkan dengan menggunakan perintah `-z` untuk membandingkan apabila variabel `sama` menghasilkan null atau tidak. Apabila menghasilkan null maka variabel `issame` akan sama dengan 1 untuk menandakan bahwa file yang sedang dicek merupakan file yang sama oleh karena itu maka loop akan di break dan program akan melaksanakan perintah selanjutnya diluar loop kedua. namun apabila file tidak sama maka akan terus dilakukan pengecakan antar file sampai batas looping.
+   Kemudian dilakukan looping baru didalam looping yang sebelumnya untuk mengecek kesamaan setiap file, namun sebelum itu dicek apabila index untuk looping pertama masih di 1 maka akan langsung keluar dari looping kedua. Dalam looping kedua yang dilakukan pertama yaitu mendeklarasikan variabel `nama` untuk nama filenya dengan index looping kedua. Kemudian dideklarasikan pula variabel `sama` untuk menyimpan informasi yang dihasilkan dari hasil `cmp`. `cmp` merupakan syntax untuk membandingkan 2 buah file berdasarkan bytenya sehingga apabila ada 2 file yang sama maka akan menghasilkan output NULL. Kemudian setelah itu dilakukan pengecekkan dengan menggunakan perintah `-z` untuk membandingkan apabila variabel `sama` menghasilkan NULL atau tidak. Apabila menghasilkan NULL maka variabel `issame` akan sama dengan 1 untuk menandakan bahwa file yang sedang dicek merupakan file yang sama, oleh karena itu loop akan di-break dan program akan melaksanakan perintah selanjutnya di luar loop kedua. Namun apabila file tidak sama, maka akan terus dilakukan pengecakan antar file sampai batas looping.
    
    ```
    if [ $count -gt 1 ]
@@ -392,13 +392,13 @@ Kelompok D-04
    fi
   done
   ```
-  Lalu diluar looping kedua yang digunakan syntax `if [ $count -gt 1 ]` untuk menghindari file pertama karena tidak ada perbandingan. kemudian apabila bukan file yang pertama akan dicek variabel `issame` apabila berisi satu yang menandakan file nya sama maka akan digunakan perintah `rm` untuk meremove file kemudian melanjutkan looping pertama, dan apabila variabel `issame` berisi 0 maka file yang sekarang bernama kitten akan di rename dengan menggunakan perintah `mv` menjadi nama file sesuai format dan kemudian variabel `file` akan diincrement dan looping untuk mendownload file dan mengecek kesamaannya akan dilanjutkan hingga batas max yaitu 23.
+  Lalu di luar looping kedua yang digunakan sintaks `if [ $count -gt 1 ]` untuk menghindari file pertama karena tidak ada perbandingan. Kemudian apabila bukan file yang pertama akan dicek variabel `issame` apabila berisi 1 yang menandakan file-nya sama, maka akan digunakan perintah `rm` untuk me-remove file kemudian melanjutkan looping pertama, dan apabila variabel `issame` berisi 0, maka file yang sekarang bernama kitten akan di-rename dengan menggunakan perintah `mv` menjadi nama file sesuai format dan kemudian variabel `file` akan di-increment dan looping untuk men-download file dan mengecek kesamaannya akan dilanjutkan hingga batas max yaitu 23.
   
     [![ss-output-no-3a.png](https://i.postimg.cc/jSWx4D40/ss-output-no-3a.png)](https://postimg.cc/qNTHkMFj)
   
-    Ini merupakan output dari soal no 3A. disini bisa dilihat jumlah foto yang di download tidak sesuai dengan jumlah yang ditentukan disoal. Ini dikarenakan di dalam script ada algoritma untuk memfilter file yang memiliki duplikat dan tidak perlu mendownload lagi file tersebut sehingga jumlah file yang ada sekarang merupakan jumlah file yang sudah selesai di remove file yang memiliki duplikat.
+  Ini merupakan output dari soal no 3A. Di sini bisa dilihat jumlah foto yang di-download tidak sesuai dengan jumlah yang ditentukan di soal. Ini dikarenakan di dalam script ada algoritma untuk mem-filter file yang memiliki duplikat dan tidak perlu mendownload lagi file tersebut sehingga jumlah file yang ada sekarang merupakan jumlah file yang sudah selesai di-remove file yang memiliki duplikat.
   
-  Untuk soal no 3A hambatan yang dialami yaitu error ketika merename nama file karena saat merename file yang pertama di download tidak ikut terename namun bisa diselesaikan dengan mengecualikan file pertama di dalam looping. kemudian hambatan yang lainnya yaitu disaat harus remove dan rename nama filenya karena di awal ada banyak penamaannya yang berantakan sehingga sulit untuk mengetahui indexing filenya, namun hal tersebut bisa diatasi dengan menambahkan variabel file untuk indexingnya. Lalu hambatan yang trakhir yaitu untuk memfilter file duplikat karena isi looping kedua yang berantakan sehingga indexing untuk comparenya kurang pas, hal ini dapat diatasi dengan merapihkan kondisi looping kedua dan menambah variabel `file`
+  Untuk soal no. 3A hambatan yang dialami yaitu error ketika me-rename nama file karena saat me-rename file yang pertama di-download tidak ikut ter-rename, namun bisa diselesaikan dengan mengecualikan file pertama di dalam looping. Kemudian hambatan yang lainnya yaitu di saat harus remove dan rename nama filenya karena di awal ada banyak penamaannya yang berantakan sehingga sulit untuk mengetahui indexing filenya, namun hal tersebut bisa diatasi dengan menambahkan variabel file untuk indexing-nya. Lalu hambatan yang terakhir yaitu untuk mem-filter file duplikat karena isi looping kedua yang berantakan sehingga indexing untuk comparenya kurang pas, hal ini dapat diatasi dengan merapihkan kondisi looping kedua dan menambah variabel `file`.
       
  ### 3B ###
   
