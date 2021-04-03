@@ -433,6 +433,78 @@ Kelompok D-04
 - <b>SOAL</B>
   
   Agar Kuuhaku tidak bosan dengan gambar anak kucing, ia juga memintamu untuk <b>mengunduh</b> gambar kelinci dari "https://loremflickr.com/320/240/bunny". Kuuhaku memintamu mengunduh gambar kucing dan kelinci secara bergantian (yang pertama bebas. contoh : tanggal 30 kucing > tanggal 31 kelinci > tanggal 1 kucing > ... ). Untuk membedakan folder yang berisi gambar kucing dan gambar kelinci, <b>nama folder diberi awalan</b> "Kucing_" atau "Kelinci_" (contoh : "Kucing_13-03-2023").
+
+- <b>JAWABAN</B>
+  
+  ```shell
+    usagi() {
+      max=23
+      file=1
+
+      for ((count=1;count<=max;count=count+1))
+      do
+          issame=0
+          wget "https://loremflickr.com/320/240/bunny" -a Foto.log -O bunny
+
+          if [ $count -eq 1 ]
+          then
+              mv bunny `printf "Koleksi_%02d" "$file"`
+              file=$(($file+1))
+          fi
+
+          for ((count2=1;count2<file;count2=count2+1))
+          do
+              if [ $count -eq 1 ]
+              then break
+              fi
+
+              nama=`printf "Koleksi_%02d" "$count2"`
+              sama=`cmp $nama bunny -b`
+
+              if [ -z "$sama" ]
+              then
+                  issame=1
+                  break
+              else
+                  issame=0
+              fi
+          done
+
+          if [ $count -gt 1 ]
+          then
+              if [ $issame -eq 1 ]
+              then
+                  rm bunny
+              else
+                  mv bunny `printf "Koleksi_%02d" "$file"`
+                  file=$(($file+1))
+              fi
+          fi
+      done
+
+      folder=$(date +"%d-%m-%Y")
+
+      mkdir "Kelinci_$folder"
+
+      mv Koleksi_* "Kelinci_$folder"
+      mv Foto.log "Kelinci_$folder"
+  }
+  ```
+  Memodifikasi dengan menggabungkan penyelesaian `soal3a.sh` dan `soal3b.sh`, lalu memasukkannya ke dalam fungsi. Untuk gambar kucing dimasukkan ke dalam fungsi `neko()` dan kelinci ke fungsi `usagi()`. Pada fungsi `usagi()` mengalami perubahan dari <i>kitten</i> menjadi <i>bunny</i> dan folder dari `Kucing_` menjadi `Kelinci_`.
+  
+  ```bash
+  nekoTotal=$(ls | grep "Kucing_" | wc -l)
+  usagiTotal=$(ls | grep "Kelinci_" | wc -l)
+
+  if [[ $nekoTotal -eq $usagiTotal ]]
+  then
+      usagi
+
+  else [[ $nekoTotal -ne $usagiTotal ]]
+      neko
+  fi
+  ```
+  Soal meminta untuk mengunduh gambar bergantian, maka dari itu diperlukan suatu kondisi agar hal itu bisa terjadi. Di sini, dapatlah ide untuk menghitung jumlah folder gambar kucing ataupun kelinci yang dimasukkan ke variabel `nekoTotal` atau `usagiTotal`. Karena kondisi awal bebas, bisa kucing atau kelinci yang dijalankan terlebih dahulu. Di sini menggunakan fungsi `usagi` sebagai pengunduhan awal. Pengunduhan awal terjadi jika `$nekoTotal` sama dengan `$usagiTotal`. Kondisi awalnya adalah sama-sama 0. Kemudian pada pengunduhan kedua akan menjalankan fungsi `neko` karena jumlah `nekoTotal` masih 0 dan `usagiTotal` menjadi 1, sehingga tidak sama. Begitu seterusnya.
   
 ### 3D ###
   
