@@ -426,7 +426,7 @@ Kelompok D-04
   ```shell
   0 20 1-31/7,2-31/4 * * cd /home/thomasfelix/PRAKTIKUM1/SOAL3 && bash soal3b.sh
   ```
-  Menjalankan script `soal3b.sh` ketika pukul 20.00 (8 malam), dalam interval tanggal 1-31 tiap 7 hari sekali, dan interval tanggal 2-31 tiap 4 hari sekali tiap bulannya.
+  Menjalankan script `soal3b.sh` pada pukul 20.00 (8 malam), dalam interval tanggal 1-31 tiap 7 hari sekali, dan interval tanggal 2-31 tiap 4 hari sekali tiap bulannya.
 
 ### 3C ###
   
@@ -511,9 +511,32 @@ Kelompok D-04
 - <b>SOAL</B>
   
   Untuk mengamankan koleksi Foto dari Steven, Kuuhaku memintamu untuk membuat script yang akan <b>memindahkan seluruh folder ke zip</b> yang diberi nama “Koleksi.zip” dan <b>mengunci</b> zip tersebut dengan <b>password</b> berupa tanggal saat ini dengan format "MMDDYYYY" (contoh : “03032003”).
+
+- <b>JAWABAN</B>
+
+  ```shell
+  pass=$(date +"%m%d%Y")
+  file=$(ls | grep -E "Kelinci_|Kucing_|-|Foto.log|Koleksi_")
+
+  zip -r -P $pass Koleksi.zip $file
+  rm -r $file
+  ```
+  Mendefinisikan password berupa date berformat MM-DD-YYYY ke dalam variabel `pass` dan regex untuk mencari folder yang akan di-zip dari file yang telah di-list dengan `ls`. Di sini semua folder hasil dari bash soal 3A, 3B, 3C harus dimasukkan ke dalam zip. Lalu, folder-folder tadi di-zip command `zip -r` untuk zip secara rekursif sehingga file ikut masuk ke dalamnya, ditambah password yang telah ditentukan di awal dan zip-nya dinamai dengan <i>Koleksi.zip</i>. Terakhir, semua folder tadi dihapus dengan `rm -r`.
  
  ### 3E ###
   
 - <b>SOAL</B>
   
   Karena Kuuhaku hanya bertemu Steven pada saat kuliah saja, yaitu setiap hari kecuali Sabtu dan Minggu, dari jam 7 pagi sampai 6 sore, ia memintamu untuk membuat koleksinya <b>ter-zip</b> saat kuliah saja, selain dari waktu yang disebutkan, ia ingin koleksinya <b>ter-unzip</b> dan <b>tidak ada file zip</b> sama sekali.
+  
+- <b>JAWABAN</B>
+
+  ```shell
+  0 7 * * 1-5 cd /home/thomasfelix/PRAKTIKUM1/SOAL3 && bash soal3d.sh
+  ```
+  Menjalankan script `soal3d.sh` pada pukul 07.00 (7 pagi), dalam interval Senin-Jumat (hari efektif kuliah) dalam tiap minggunya.
+  
+  ```shell
+  0 18 * * 1-5 cd /home/thomasfelix/PRAKTIKUM1/SOAL3 && unzip -P $(date + "\%m\%d\%Y") Koleksi.zip && rm Koleksi.zip
+  ```
+  Menjalankan unzip dengan password sesuai script `soal3d.sh` dan menghapus <i>Koleksi.zip</i> ketika semua file dan folder telah ter-unzip pada pukul 18.00 (6 malam), dalam interval Senin-Jumat (hari efektif kuliah) dalam tiap minggunya.
