@@ -401,6 +401,8 @@ Kuuhaku adalah orang yang sangat suka mengoleksi foto-foto digital, namun Kuuhak
   done
   ```
   Lalu diluar looping kedua yang digunakan syntax `if [ $count -gt 1 ]` untuk menghindari file pertama karena tidak ada perbandingan. kemudian apabila bukan file yang pertama akan dicek variabel `issame` apabila berisi satu yang menandakan file nya sama maka akan digunakan perintah `rm` untuk meremove file kemudian melanjutkan looping pertama, dan apabila variabel `issame` berisi 0 maka file yang sekarang bernama kitten akan di rename dengan menggunakan perintah `mv` menjadi nama file sesuai format dan kemudian variabel `file` akan diincrement dan looping untuk mendownload file dan mengecek kesamaannya akan dilanjutkan hingga batas max yaitu 23.
+  
+  Untuk soal no 3A hambatan yang dialami yaitu error ketika merename nama file karena saat merename file yang pertama di download tidak ikut terename namun bisa diselesaikan dengan mengecualikan file pertama di dalam looping. kemudian hambatan yang lainnya yaitu disaat harus remove dan rename nama filenya karena di awal ada banyak penamaannya yang berantakan sehingga sulit untuk mengetahui indexing filenya, namun hal tersebut bisa diatasi dengan menambahkan variabel file untuk indexingnya. Lalu hambatan yang trakhir yaitu untuk memfilter file duplikat karena isi looping kedua yang berantakan sehingga indexing untuk comparenya kurang pas, hal ini dapat diatasi dengan merapihkan kondisi looping kedua dan menambah variabel `file`
       
  ### 3B ###
   
