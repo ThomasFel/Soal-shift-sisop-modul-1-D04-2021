@@ -20,6 +20,16 @@ Kelompok D-04
   listLog=$(grep -o "ticky.*" syslog.log | cut -f -2)
   ```
   Untuk mengumpulkan informasi dari log aplikasi yang ada di `syslog.log`, menggunakan command `grep` yang mengambil kata kunci, di sini memakai "ticky.\*" untuk mencarinya. Lalu command `cut` mengambil deskripsi error dengan delimiter dan option yang sesuai.
+
+- <b>OUTPUT</b>
+  
+  ```
+  . . .
+  ERROR The ticket was modified while updating (breee)
+  ERROR Permission denied while closing ticket (ac)
+  INFO Commented on ticket [#4709] (blossom)
+  . . .
+  ```
   
 ### 1B ###
 
@@ -34,6 +44,17 @@ Kelompok D-04
   listError=$(grep -o "ERROR.*" syslog.log | cut -d " " -f 2- | cut -d "(" -f 1 | sort -V | uniq -c | sort -n -r)
   ```
   Untuk menampilkan semua pesan error dari log aplikasi yang ada di `syslog.log` serta jumlah kemunculannya, menggunakan command `grep` yang mengambil kata kunci, di sini memakai "ERROR.\*" untuk mencarinya. Sebelumnya di sini menggunakan operator `|` pipe untuk mengubah input ke command selanjutnya. Option `-o` digunakan untuk print hasil yang hanya sesuai kata kunci, lalu command `cut` mengambil deskripsi error dengan delimiter dan option yang sesuai. Setelah itu dirapikan menggunakan command `sort` dengan option `-V`, dan tiap error-error yang mempunyai duplikat akan dihitung dengan command `uniq` dengan option `-c`. Terakhir di-<i>sort</i> secara descending (paling besar) menggunakan command `sort` dengan option `-n` dan `-r`.
+  
+- <b>OUTPUT</b>
+  
+  ```
+  15  Timeout while retrieving information
+  13  Connection to DB Failed
+  12  Tried to add information to closed ticket
+  10  Permission denied while closing ticket
+   9  The ticket was modified while updating
+   7  Ticket doesn't exist
+  ```
 
 ### 1C ###
 
@@ -54,9 +75,29 @@ Kelompok D-04
   userError=$(grep -o "ERROR.*" syslog.log | cut -f 2- -d"(" | cut -d ")" -f 1 | sort | uniq -c | sort -n)
   userInfo=$(grep -o "INFO.*" syslog.log | cut -f 2- -d"(" | cut -d ")" -f 1 | sort | uniq -c | sort -n)
   ```
-  Untuk menghitung jumlah user dari log "ERROR" atau "INFO" aplikasi yang ada di `syslog.log`, menggunakan command `grep` yang mengambil kata kunci, di sini memakai "ERROR.*emphasis*" atau "INFO.*emphasis*" untuk mencarinya. Sebelumnya di sini menggunakan operator `|` pipe untuk mengubah input ke command selanjutnya. Kemudian, memakai option `-d"(" -f 2 < syslog.log` untuk memotong <b>field kedua sampai pertama</b> dengan patokan <i>char</i> "(", dan menggunakan command `cut` kembali dengan option `cut -d ")" -f 1` untuk memotong <b>field pertama</b> dengan patokan <i>char</i> ")", dan tiap error-error yang mempunyai duplikat akan dihitung dengan command `uniq` dengan option `-c`. Terakhir di-<i>sort</i> secara ascending (paling kecil) menggunakan command `sort` dengan option `-n`.
+  Untuk menghitung jumlah user dari log "ERROR" atau "INFO" aplikasi yang ada di `syslog.log`, menggunakan command `grep` yang mengambil kata kunci, di sini memakai "ERROR.\*" atau "INFO.\*" untuk mencarinya. Sebelumnya di sini menggunakan operator `|` pipe untuk mengubah input ke command selanjutnya. Kemudian, memakai option `-d"(" -f 2 < syslog.log` untuk memotong <b>field kedua sampai pertama</b> dengan patokan <i>char</i> "(", dan menggunakan command `cut` kembali dengan option `cut -d ")" -f 1` untuk memotong <b>field pertama</b> dengan patokan <i>char</i> ")", dan tiap error-error yang mempunyai duplikat akan dihitung dengan command `uniq` dengan option `-c`. Terakhir di-<i>sort</i> secara ascending (paling kecil) menggunakan command `sort` dengan option `-n`.
 
-
+- <b>OUTPUT</b>
+  
+  <b><i>ERROR LOG</i></b>
+  
+  ```
+  . . .
+  3 enim.non
+  3 mai.hendrix
+  3 mcintosh
+  . . .
+  ```
+  
+  <b><i>INFO LOG</i></b>
+  ```
+  . . .
+  2 jackowens
+  3 kirknixon
+  2 mdouglas
+  . . .
+  ```
+  
 ### 1D ###
 
 - <b>SOAL</b>
@@ -78,6 +119,12 @@ Kelompok D-04
   ```
   Pesan "Error,Count" dikirim ke "<i>error_message.csv</i>". Lalu pada `$listError` menjadi input bagi perulangan <i>while</i> dan dimasukkan ke variabel `errors`. Deskripsi Error dan jumlahnya dimasukkan ke variabel `errorName` dan `errorTotal`. Pada `errorName`, digunakan command `echo` untuk mencetak output dari command `cut` kembali dengan option `cut -d " " -f 2-` untuk memotong <b>field kedua sampai akhir</b> dengan patokan <i>char</i> " " (spasi). Pada `errorTotal`, command `echo` untuk mencetak output dari command `cut` kembali dengan option `cut -d " " -f 1` untuk memotong <b>field pertama</b> dengan patokan <i>char</i> " " (spasi). Terakhir, hasilnya dimasukkan ke "<i>error_message.csv</i>".
 
+- <b>OUTPUT</b>
+  
+  <b><i>error_message.csv</i></b>
+  
+  <img src="https://user-images.githubusercontent.com/37539546/113507893-48cd6800-9577-11eb-8905-b72d23a1733b.png" width="640" height="480">
+  
 ### 1E ###
 
 - <b>SOAL</b>
@@ -98,17 +145,20 @@ Kelompok D-04
   done
   ```
   Pesan "Error,Count" dikirim ke "<i>error_message.csv</i>". Lalu pada `$listUser` yang berisi list User tadi menjadi input bagi perulangan <i>while</i> dan dimasukkan ke variabel `users`. Nama user dan jumlahnya dimasukkan ke variabel `totalUserError` dan `totalUserInfo`. Lalu, untuk menghitung jumlah user dan error tiap usernya, bisa menggunakan command `grep` dengan option `--count` yang akan menghitung setiap keyword yang muncul per baris dalam hal ini `$users`. Terakhir, hasilnya dimasukkan ke "<i>user_statistic.csv</i>".
-  
+
 - <b>OUTPUT</b>
-  
-  <b><i>error_message.csv</i></b>
-  
-  <img src="https://user-images.githubusercontent.com/37539546/113507893-48cd6800-9577-11eb-8905-b72d23a1733b.png" width="640" height="480">
   
   <b><i>user_statistic.csv</i></b>
   
   <img src="https://user-images.githubusercontent.com/37539546/113508036-f5a7e500-9577-11eb-97bb-164651bbc440.png" width="640" height="480">
- 
+
+### KENDALA ###
+
+- Kendala yang dialami sewaktu mengerjakan soal no. 1 ini adalah saat membuat regex. Di sini bingung karena selama ini jarang memakai, apalagi juga belum terbiasa dengan sintaks Bash. Jadi memang harus cari referensi dan manual yang ada di Bash.
+- Masih bingung penggunaan `grep` dan `cut` beserta command-nya seperti <i>delimiter</i> dan <i>field</i>.
+- Kebanyakan di soal ini salah membaca dan menangkap soal, jadi output yang dihasilkan tidak sesuai yang diharapkan.
+- Kesulitan terutama di soal 1E untuk menghitung jumlah log ERROR dan INFO. 
+
 ## SOAL 2 ##
 
 ### 2A ###
@@ -344,7 +394,13 @@ Kelompok D-04
   <b><i>hasil.txt</i></b>
   
   <img src="https://user-images.githubusercontent.com/37539546/113508139-85e62a00-9578-11eb-9294-c976ea1c5708.png" width="640" height="480">
-  
+
+### KENDALA ###
+
+- Kendala yang dialami sewaktu mengerjakan soal no. 2 adalah jelas mencari algoritma untuk pemecahannya.
+- Awalnya kebingungan untuk memisahkan <i>row</i> paling atas karena hanya ingin mengambil <i>value</i> selain itu.
+- Membiasakan diri dengan sintaks AWK karena baru memakai pertama kali. 
+
 ## SOAL 3 ##
   
  ### 3A ###
@@ -573,4 +629,7 @@ Kelompok D-04
 
 ### KENDALA ###
 
-- Untuk soal no. 3A hambatan yang dialami yaitu error ketika me-rename nama file karena saat me-rename file yang pertama di-download tidak ikut ter-rename, namun bisa diselesaikan dengan mengecualikan file pertama di dalam looping. Kemudian hambatan yang lainnya yaitu di saat harus remove dan rename nama filenya karena di awal ada banyak penamaannya yang berantakan sehingga sulit untuk mengetahui indexing filenya, namun hal tersebut bisa diatasi dengan menambahkan variabel file untuk indexing-nya. Lalu hambatan yang terakhir yaitu untuk mem-filter file duplikat karena isi looping kedua yang berantakan sehingga indexing untuk comparenya kurang pas, hal ini dapat diatasi dengan merapihkan kondisi looping kedua dan menambah variabel `file`.
+- Untuk soal no. 3A kendala yang dialami yaitu error ketika me-rename nama file karena saat me-rename file yang pertama di-download tidak ikut ter-rename, namun bisa diselesaikan dengan mengecualikan file pertama di dalam looping. Kemudian hambatan yang lainnya yaitu di saat harus remove dan rename nama filenya karena di awal ada banyak penamaannya yang berantakan sehingga sulit untuk mengetahui indexing filenya, namun hal tersebut bisa diatasi dengan menambahkan variabel file untuk indexing-nya. Lalu hambatan yang terakhir yaitu untuk mem-filter file duplikat karena isi looping kedua yang berantakan sehingga indexing untuk comparenya kurang pas, hal ini dapat diatasi dengan merapihkan kondisi looping kedua dan menambah variabel `file`.
+- Crontab di perangkat terkadang tidak bisa jalan. Lalu, tanggal di VirtualBox tidak bisa diubah, <i>default</i> sesuai tanggal OS utama, jadi harus <i>try & error</i> script crontab untuk ujicoba apakah berjalan atau tidak.
+- Hampir sama dengan no. 1, karena ada yang menggunakan regex, jadi masih bingung untuk mengambil kata kunci tertentu.
+- Kesulitan waktu mencari algoritma yang mengunduh gambar kucing dan kelinci secara bergantian.
