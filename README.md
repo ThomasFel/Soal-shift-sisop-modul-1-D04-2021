@@ -98,6 +98,16 @@ Kelompok D-04
   done
   ```
   Pesan "Error,Count" dikirim ke "<i>error_message.csv</i>". Lalu pada `$listUser` yang berisi list User tadi menjadi input bagi perulangan <i>while</i> dan dimasukkan ke variabel `users`. Nama user dan jumlahnya dimasukkan ke variabel `totalUserError` dan `totalUserInfo`. Lalu, untuk menghitung jumlah user dan error tiap usernya, bisa menggunakan command `grep` dengan option `--count` yang akan menghitung setiap keyword yang muncul per baris dalam hal ini `$users`. Terakhir, hasilnya dimasukkan ke "<i>user_statistic.csv</i>".
+  
+- <b>OUTPUT</b>
+  
+  <b><i>error_message.csv</i></b>
+  
+  <img src="https://user-images.githubusercontent.com/37539546/113507893-48cd6800-9577-11eb-8905-b72d23a1733b.png" width="640" height="480">
+  
+  <b><i>user_statistic.csv</i></b>
+  
+  <img src="https://user-images.githubusercontent.com/37539546/113508036-f5a7e500-9577-11eb-97bb-164651bbc440.png" width="640" height="480">
  
 ## SOAL 2 ##
 
@@ -328,6 +338,12 @@ Kelompok D-04
   Laporan-TokoShiSop.tsv >> hasil.txt
   ```
   Agar hasilnya dimasukkan ke dalam "<i>hasil.txt</i>".
+
+- <b>OUTPUT</b>
+  
+  <b><i>hasil.txt</i></b>
+  
+  <img src="https://user-images.githubusercontent.com/37539546/113508139-85e62a00-9578-11eb-9294-c976ea1c5708.png" width="640" height="480">
   
 ## SOAL 3 ##
   
@@ -393,12 +409,12 @@ Kelompok D-04
   done
   ```
   Lalu di luar looping kedua yang digunakan sintaks `if [ $count -gt 1 ]` untuk menghindari file pertama karena tidak ada perbandingan. Kemudian apabila bukan file yang pertama akan dicek variabel `issame` apabila berisi 1 yang menandakan file-nya sama, maka akan digunakan perintah `rm` untuk me-remove file kemudian melanjutkan looping pertama, dan apabila variabel `issame` berisi 0, maka file yang sekarang bernama kitten akan di-rename dengan menggunakan perintah `mv` menjadi nama file sesuai format dan kemudian variabel `file` akan di-increment dan looping untuk men-download file dan mengecek kesamaannya akan dilanjutkan hingga batas max yaitu 23.
+
+- <b>OUTPUT</b>
   
-    [![ss-output-no-3a.png](https://i.postimg.cc/jSWx4D40/ss-output-no-3a.png)](https://postimg.cc/qNTHkMFj)
+  <img src="https://user-images.githubusercontent.com/37539546/113508497-897ab080-957a-11eb-8a45-9e3762f2d21d.png" width="640" height="480">
   
   Ini merupakan output dari soal no. 3A. Di sini bisa dilihat jumlah foto yang di-download tidak sesuai dengan jumlah yang ditentukan di soal. Ini dikarenakan di dalam script ada algoritma untuk mem-filter file yang memiliki duplikat dan tidak perlu mendownload lagi file tersebut sehingga jumlah file yang ada sekarang merupakan jumlah file yang sudah selesai di-remove file yang memiliki duplikat.
-  
-  Untuk soal no. 3A hambatan yang dialami yaitu error ketika me-rename nama file karena saat me-rename file yang pertama di-download tidak ikut ter-rename, namun bisa diselesaikan dengan mengecualikan file pertama di dalam looping. Kemudian hambatan yang lainnya yaitu di saat harus remove dan rename nama filenya karena di awal ada banyak penamaannya yang berantakan sehingga sulit untuk mengetahui indexing filenya, namun hal tersebut bisa diatasi dengan menambahkan variabel file untuk indexing-nya. Lalu hambatan yang terakhir yaitu untuk mem-filter file duplikat karena isi looping kedua yang berantakan sehingga indexing untuk comparenya kurang pas, hal ini dapat diatasi dengan merapihkan kondisi looping kedua dan menambah variabel `file`.
       
  ### 3B ###
   
@@ -428,6 +444,11 @@ Kelompok D-04
   ```
   Menjalankan script `soal3b.sh` pada pukul 20.00 (8 malam), dalam interval tanggal 1-31 tiap 7 hari sekali, dan interval tanggal 2-31 tiap 4 hari sekali tiap bulannya.
 
+- <b>OUTPUT</b>
+
+  <img src="https://user-images.githubusercontent.com/37539546/113508552-d3639680-957a-11eb-872a-44c6809585e0.png" width="640" height="480">
+  <img src="https://user-images.githubusercontent.com/37539546/113508272-4704a400-9579-11eb-8af6-76f98a97d2f0.png" width="640" height="480">
+  
 ### 3C ###
   
 - <b>SOAL</B>
@@ -505,6 +526,11 @@ Kelompok D-04
   fi
   ```
   Soal meminta untuk mengunduh gambar bergantian, maka dari itu diperlukan suatu kondisi agar hal itu bisa terjadi. Di sini, dapatlah ide untuk menghitung jumlah folder gambar kucing ataupun kelinci yang dimasukkan ke variabel `nekoTotal` atau `usagiTotal`. Karena kondisi awal bebas, bisa kucing atau kelinci yang dijalankan terlebih dahulu. Di sini menggunakan fungsi `usagi` sebagai pengunduhan awal. Pengunduhan awal terjadi jika `$nekoTotal` sama dengan `$usagiTotal`. Kondisi awalnya adalah sama-sama 0. Kemudian pada pengunduhan kedua akan menjalankan fungsi `neko` karena jumlah `nekoTotal` masih 0 dan `usagiTotal` menjadi 1, sehingga tidak sama. Begitu seterusnya.
+
+- <b>OUTPUT</b>
+
+  <img src="https://user-images.githubusercontent.com/37539546/113508307-76b3ac00-9579-11eb-9b96-2364d7b5d0d5.png" width="640" height="480">
+  <img src="https://user-images.githubusercontent.com/37539546/113508308-79160600-9579-11eb-9944-ac154890102d.png" width="640" height="480">
   
 ### 3D ###
   
@@ -522,7 +548,11 @@ Kelompok D-04
   rm -r $file
   ```
   Mendefinisikan password berupa date berformat MM-DD-YYYY ke dalam variabel `pass` dan regex untuk mencari folder yang akan di-zip dari file yang telah di-list dengan `ls`. Di sini semua folder hasil dari bash soal 3A, 3B, 3C harus dimasukkan ke dalam zip. Lalu, folder-folder tadi di-zip command `zip -r` untuk zip secara rekursif sehingga file ikut masuk ke dalamnya, ditambah password yang telah ditentukan di awal dan zip-nya dinamai dengan <i>Koleksi.zip</i>. Terakhir, semua folder tadi dihapus dengan `rm -r`.
- 
+
+- <b>OUTPUT</b>
+  
+  <img src="https://user-images.githubusercontent.com/37539546/113508343-b2e70c80-9579-11eb-804e-09c87812e9e4.png" width="640" height="480">
+  
  ### 3E ###
   
 - <b>SOAL</B>
@@ -540,3 +570,7 @@ Kelompok D-04
   0 18 * * 1-5 cd /home/thomasfelix/PRAKTIKUM1/SOAL3 && unzip -P $(date + "\%m\%d\%Y") Koleksi.zip && rm Koleksi.zip
   ```
   Menjalankan unzip dengan password sesuai script `soal3d.sh` dan menghapus <i>Koleksi.zip</i> ketika semua file dan folder telah ter-unzip pada pukul 18.00 (6 malam), dalam interval Senin-Jumat (hari efektif kuliah) tiap minggunya.
+
+### KENDALA ###
+
+- Untuk soal no. 3A hambatan yang dialami yaitu error ketika me-rename nama file karena saat me-rename file yang pertama di-download tidak ikut ter-rename, namun bisa diselesaikan dengan mengecualikan file pertama di dalam looping. Kemudian hambatan yang lainnya yaitu di saat harus remove dan rename nama filenya karena di awal ada banyak penamaannya yang berantakan sehingga sulit untuk mengetahui indexing filenya, namun hal tersebut bisa diatasi dengan menambahkan variabel file untuk indexing-nya. Lalu hambatan yang terakhir yaitu untuk mem-filter file duplikat karena isi looping kedua yang berantakan sehingga indexing untuk comparenya kurang pas, hal ini dapat diatasi dengan merapihkan kondisi looping kedua dan menambah variabel `file`.
