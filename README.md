@@ -93,7 +93,7 @@ Kelompok D-04
   ```
   . . .
   2 jackowens
-  3 kirknixon
+  2 kirknixon
   2 mdouglas
   . . .
   ```
