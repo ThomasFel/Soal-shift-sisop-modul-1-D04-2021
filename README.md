@@ -33,7 +33,7 @@ Kelompok D-04
   ```shell
   listError=$(grep -o "ERROR.*" syslog.log | cut -d " " -f 2- | cut -d "(" -f 1 | sort -V | uniq -c | sort -n -r)
   ```
-  Untuk menampilkan semua pesan error dari log aplikasi yang ada di `syslog.log` serta jumlah kemunculannya, menggunakan command `grep` yang mengambil kata kunci, di sini memakai "ERROR.*emphasis*" untuk mencarinya. Sebelumnya di sini menggunakan operator `|` pipe untuk mengubah input ke command selanjutnya. Option `-o` digunakan untuk print hasil yang hanya sesuai kata kunci, lalu command `cut` mengambil deskripsi error dengan delimiter dan option yang sesuai. Setelah itu dirapikan menggunakan command `sort` dengan option `-V`, dan tiap error-error yang mempunyai duplikat akan dihitung dengan command `uniq` dengan option `-c`. Terakhir di-<i>sort</i> secara descending (paling besar) menggunakan command `sort` dengan option `-n` dan `-r`.
+  Untuk menampilkan semua pesan error dari log aplikasi yang ada di `syslog.log` serta jumlah kemunculannya, menggunakan command `grep` yang mengambil kata kunci, di sini memakai "ERROR.\*" untuk mencarinya. Sebelumnya di sini menggunakan operator `|` pipe untuk mengubah input ke command selanjutnya. Option `-o` digunakan untuk print hasil yang hanya sesuai kata kunci, lalu command `cut` mengambil deskripsi error dengan delimiter dan option yang sesuai. Setelah itu dirapikan menggunakan command `sort` dengan option `-V`, dan tiap error-error yang mempunyai duplikat akan dihitung dengan command `uniq` dengan option `-c`. Terakhir di-<i>sort</i> secara descending (paling besar) menggunakan command `sort` dengan option `-n` dan `-r`.
 
 ### 1C ###
 
