@@ -348,7 +348,7 @@ Kelompok D-04
     }
   }
   ```
-   Kemudian membuat inisial variabel agar lebih mudah dalam pembacaan kode, dengan `region = $13` dan `profit = $21`. Pada pengondisian `NR atau <i>Number of Row</i> != 1` maksudnya adalah agar bagian paling atas data (<i>header</i>) sendiri tidak di-<i>passing</i>. Lalu, ditambahkan kondisi untuk menghitung nilai kemunculan tiap-tiap regionnya, jika `region == "Central"`, variabel `central` akan ditambah nilai variabel `profit`, jika `region == "East"`, variabel `east` akan ditambah nilai variabel `profit`, jika `region == "South"`, variabel `south` akan ditambah nilai variabel `profit`, dan jika `region == "West"`, variabel `west` akan ditambah nilai variabel `profit`.
+   Kemudian membuat inisial variabel agar lebih mudah dalam pembacaan kode, dengan `region = $13` dan `profit = $21`. Pada pengondisian `NR atau Number of Row != 1` maksudnya adalah agar bagian paling atas data (<i>header</i>) sendiri tidak di-<i>passing</i>. Lalu, ditambahkan kondisi untuk menghitung nilai kemunculan tiap-tiap regionnya, jika `region == "Central"`, variabel `central` akan ditambah nilai variabel `profit`, jika `region == "East"`, variabel `east` akan ditambah nilai variabel `profit`, jika `region == "South"`, variabel `south` akan ditambah nilai variabel `profit`, dan jika `region == "West"`, variabel `west` akan ditambah nilai variabel `profit`.
    
    Pada akhir script nomor 2C bagian END:
   ```shell
